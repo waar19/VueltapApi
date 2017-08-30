@@ -1,0 +1,580 @@
+FORMAT: 1A
+HOST: http://31.220.57.190:8080/api_1.0/
+
+# Vueltap REST API
+
+Documentacion oficial del API RESTFul aplicación Vueltap.
+
+## User Methods [/User/Login]
+
+### Login [PUT]
+
+Logueo de usuarios de Vueltap, verificacion de usuario y contraseña.
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Body:
+    - email: correo de usuario
+    - password: contraseña de usuario
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false
+    - message: mensaje de respuesta
+    - response: Objeto JSON de Usuario
+        - _id : Id único del usuario
+        - email: Email de usuario
+        - name: Nombre del usuario
+        - lastname: Apellidos del usuario
+        - session: Objeto JSON de sesión de usuario:
+            - exp_date: fecha de expiración del token
+            - token: token (email) de usuario generado para la sesión, el cual se usará en los headers más adelante.
+        - type: Tipo de servicio que generará el usuario si es mensajería es (messaging)
+
++ Request (application/json)
+
+    + Body
+    
+            {
+              "email": "wilmeralzateroman@gmail.com",
+              "password": "d2FyMjY2MDQ4OQ=="
+            }
+        
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "status": true,
+              "response": {
+                "_id": "58703a04e8fa120cf0987c17",
+                "email": "wilmeralzateroman@gmail.com",
+                "email_confirmation": true,
+                "active": true,
+                "password": "$2a$10$PzZrli3mfND64ZvLho4GZehHRLQAsHH2QIjUBcwiDVbbbLhfrhZrK",
+                "name": "Wilmer",
+                "lastname": "Alzate Roman",
+                "mobilephone": 3204204615,
+                "__v": 0,
+                "device": [],
+                "stats": {
+                  "created_services": 178
+                },
+                "session": {
+                  "exp_date": "2017-05-01T05:00:00.000Z",
+                  "token": "wilmeralzateroman@gmail.com"
+                },
+                "corporate_payment": true,
+                "favorites": [],
+                "password_recover": {
+                  "status": true,
+                  "token": "$2a$10$ahwhHkWddBNvBWHMxmJ9HepQVtze42MywEh3pm0zueJmSP4U5akVK"
+                },
+                "type": "messaging"
+              },
+              "message": "Autenticado correctamente"
+            }
+
+## Address Methods [/GetPriceFromLocations/]
+
+### GetPriceFromLocations [POST]
+
+Metodo que permite obtener el precio dado un arreglo de ubicaciones
+[pos A, pos B, pos C, etc ...] donde pos A es el punto de partida y de ahi en adelante
+son puntos de entrega. Autenticacion basica. Ejemplo: Authorization: 
+'Basic ' + btoa(email + ':' + btoa(password)), el objeto locations  en el body
+contiene tanto latitud lat como longitud lon en formato estandar como se obtiene en
+Google Maps.
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la petición, siempre sera "user"
+    - Authorization: Autorización Basica para llamados http
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login
+
+- Body:
+    - insurance_value: valor del seguro, no aplica en este caso.
+    - is_roundtrip: indica si el servicio es ida y vuelta, en este caso siempre es false
+    - locations: arreglo de ubicaciones donde la primera es el punto de partida (recogida)
+    y la segunda es el punto de llegada (entrega).
+        - lat: latitud (formato estándar)
+        - lon: longitud (formato estándar)
+        - name: descripción obtenida del Geocoder de Google a partir de la latitud y la longitud.
+        - details: no aplica
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false.
+    - message: mensaje de respuesta con el valor del servicio.
+    - value: valor del servicio.
+    - insurance: valor del seguro, no aplica en este caso.
+    - duration: Duración aproximada de entrega del pedido, despues de ser tomado por un mensajero.
+    - durationValue: Duración aproximada de entrega desde de la ubicacion del mensajero hasta la direccion de entrega.
+    - originCity: arreglo en el que se encuentra la latitud y longitud de la ciudad en la cual se realizo el servicio,
+    por defecto Bogota D.C
+    
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+    
+    + Body
+    
+            {
+                "locations":[
+                        {
+                            "lat":4.68631596952311,
+                            "lon":-74.0528381767905,
+                            "name":"AC 100 # 19 - 0 ,Bogotá D.C.,Colombia",
+                            "details":""
+                        },
+                        {
+                            "lat":4.60333898674767,
+                            "lon":-74.0812170856596,
+                            "name":"CL 12 # 15 - 0 ,Bogotá D.C.,Colombia",
+                            "details":""
+                        }
+                ],
+                "is_roundtrip": false,
+                "insurance_value": 0
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "status": true,
+              "message": "Valor a pagar aproximado: $13542.88",
+              "value": 13542.88,
+              "insurance": 0,
+              "duration": "23 min1 min",
+              "durationValue": "14040",
+              "originCity": [
+                "4.68631596952311",
+                "-74.0528381767905"
+              ]
+            }
+        
+        
+## Create Delivery Methods [/DeliveryItem/CreateMultiple/]
+
+### CreateMultiple [POST]
+Método de creación de pedidos
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Autorizathion: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+- Body:
+    - insurancevalue: Valor del seguro, no aplica.
+    - insurance: Validación si el servicio viene asegurado, no aplica.
+    - insurance_price: Valor del seguro, no aplica.
+    - promo_code_id: Codigo de promocion con descuento, obsequiado al usuario, no aplica.
+    - discount: Valor del descuento aplicado al codigo de promoción, no aplica.
+    - price_to_pay: Valor a pagar del servicio creado, que se obtiene en la respuesta del metodo GetPriceFromLocations.
+    - ip_address: Direccion IP desde donde se realiza la petición del servicio.
+    - item_name: Nombre del pedido, por defecto "Pedido Ciudad de Mascotas - Nombre de usuario"
+    - instructions: Instrucciones adicionales para la entrega y transporte del pedido.
+    - payment_method: Metodo por el cual se va a pagar el servicio, por defecto "corporate".
+    - locations: arreglo de ubicaciones donde la primera es el punto de partida (recogida)
+    y la segunda es el punto de llegada (entrega).
+        - lat: latitud (formato estándar).
+        - lon: longitud (formato estándar).
+        - name: descripción obtenida del Geocoder de Google a partir de la latitud y la longitud.
+        - details: no aplica.
+    - pickup_object: No aplica.
+    - delivery_object: No aplica.
+    - user_info: Objeto JSON de sesion usuario.
+    - user_id: Id unico del usuario.
+    - service_price: Valor a pagar del servicio creado, que se obtiene en la respuesta del metodo GetPriceFromLocations.
+    - token_id: id del token de usuario, presente dentro del objeto usuario session.token.
+    - service_type: Tipo de servicio generado el mismo que el tipo de usuario ver Login, para mensajería (messaging)
+    - bring_cash: Si se debe llevar dinero adicional esto se envia en false.
+    - how_much_cash: Cuanto dinero adicional debe llevar el mensajero, se envía en 0
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false.
+    - message: mensaje de confirmacion en caso de que el estatus sea true.
+    - response: Objeto JSON deliveryItem con la informacion del pedido creado.
+        - user_id: Id unico de usuario.
+        - user_info: Objeto JSON de sesion de usuario.
+        - item_name: Nombre del pedido creado de acuerdo al formato establecido.
+        - date_created: Fecha de creación del pedido.
+        - instructions: Instrucciones establecidas para la entrega y transporte del pedido.
+        - overall_status: Estado general del pedido, cuando el valor es "requested" esta solicitado y esta disponible para ser tomado por un mensajero de Vueltap.
+            - Variaciones: 
+                - requested: solicitado
+                - started : iniciado por un mensajero de vueltap
+                - aborted: el mensajero lo tomo pero cancelo la etrega
+                - finished: entregado a su destino
+        - status: Estado del pedido.
+            - Variaciones:
+                -  Disponible: disponible para ser tomado por un mensajero
+                - Aceptado: Aceptado por un mensajero
+                - En Tránsito: En camino al destino
+                - Entregado: Entregado al destinatario
+                - Regresando: aplica sólo para servicios de ida y vuelta.
+                - Regresado: regresado al remitente, aplica sólo para servicios de ida y vuelta.
+                - Cancelado: Cancelado por el usuario
+                - Rechazado: Cancelado por el mensajero
+        - _id: id unico del pedido (DeliveryItem).
+        - service_price: Valor del servicio creado.
+        - service_type: Tipo de servicio generado el mismo que el tipo de usuario ver Login, para mensajería (messaging)
+        - bring_cash: Si se debe llevar dinero adicional esto se envia en false.
+        - how_much_cash: Cuanto dinero adicional debe llevar el mensajero, se envía en 0
+        
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+    
+            {
+               "insurancevalue":0,
+               "insurance":false,
+               "insurance_price":0,
+               "promo_code_id":"",
+               "discount":0,
+               "price_to_pay":13542.88,
+               "ip_address":"181.33.139.118",
+               "item_name":"Pedido Ciudad de Mascotas - Wilmer Alzate",
+               "instructions":"Pedido de snack para perro",
+               "payment_method":"corporate",
+               "locations":[
+                  {
+                     "lat":4.68631596952311,
+                     "lon":-74.0528381767905,
+                     "address":"AC 100 # 19 - 0 ,Bogotá D.C.,Colombia",
+                     "details":""
+                  },
+                  {
+                     "lat":4.60333898674767,
+                     "lon":-74.0812170856596,
+                     "address":"CL 12 # 15 - 0 ,Bogotá D.C.,Colombia",
+                     "details":""
+                  }
+               ],
+               "pickup_object":{
+                  "lat":"0.000",
+                  "lon":"-0.000"
+               },
+               "delivery_object":{
+                  "lat":"0.000",
+                  "lon":"-0.000"
+               },
+               "user_info":{
+                  "_id":"58703a04e8fa120cf0987c17",
+                  "email":"wilmeralzateroman@gmail.com",
+                  "email_confirmation":true,
+                  "active":true,
+                  "password":"$2a$10$PzZrli3mfND64ZvLho4GZehHRLQAsHH2QIjUBcwiDVbbbLhfrhZrK",
+                  "name":"Wilmer",
+                  "lastname":"Alzate Roman",
+                  "mobilephone":3204204615,
+                  "__v":0,
+                  "device":[
+            
+                  ],
+                  "stats":{
+                     "created_services":181
+                  },
+                  "session":{
+                     "exp_date":"2017-05-03T05:00:00.000Z",
+                     "token":"wilmeralzateroman@gmail.com"
+                  },
+                  "corporate_payment":true,
+                  "favorites":[
+            
+                  ],
+                  "password_recover":{
+                     "status":true,
+                     "token":"$2a$10$ahwhHkWddBNvBWHMxmJ9HepQVtze42MywEh3pm0zueJmSP4U5akVK"
+                  }
+               },
+               "user_id":"58703a04e8fa120cf0987c17",
+               "service_price":13542.88,
+               "token_id":"58efdc7919d35624070d0187",
+               "service_type": "messaging",
+               "bring_cash": false,
+               "how_much_cash": 0
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "status": true,
+              "message": "Pedido creado exitosamente.",
+              "response": {
+                "__v": 0,
+                "user_id": "58703a04e8fa120cf0987c17",
+                "user_info": {
+                  "password_recover": {
+                    "token": "$2a$10$ahwhHkWddBNvBWHMxmJ9HepQVtze42MywEh3pm0zueJmSP4U5akVK",
+                    "status": true
+                  },
+                  "favorites": [],
+                  "corporate_payment": true,
+                  "session": {
+                    "token": "wilmeralzateroman@gmail.com",
+                    "exp_date": "2017-05-03T05:00:00.000Z"
+                  },
+                  "stats": {
+                    "created_services": 181
+                  },
+                  "device": [],
+                  "__v": 0,
+                  "mobilephone": 3204204615,
+                  "lastname": "Alzate Roman",
+                  "name": "Wilmer",
+                  "password": "$2a$10$PzZrli3mfND64ZvLho4GZehHRLQAsHH2QIjUBcwiDVbbbLhfrhZrK",
+                  "active": true,
+                  "email_confirmation": true,
+                  "email": "wilmeralzateroman@gmail.com",
+                  "_id": "58703a04e8fa120cf0987c17"
+                },
+                "item_name": "Pedido Ciudad de Mascotas - Wilmer Alzate",
+                "date_created": "2017-04-19T16:15:56.498Z",
+                "pickup_object": {
+                  "lon": "-0.000",
+                  "lat": "0.000"
+                },
+                "delivery_object": {
+                  "lon": "-0.000",
+                  "lat": "0.000"
+                },
+                "signature_object": {
+                  "signatureB64": "",
+                  "status": false
+                },
+                "insurance": false,
+                "instructions": "Pedido de snack para perro",
+                "payment_method": "corporate",
+                "overall_status": "requested",
+                "status": "available",
+                "rated": false,
+                "payment_token_id": null,
+                "promo_code_id": "",
+                "_id": "58f78d3c94b103d5221ae2d1",
+                "discount": 0,
+                "images": [],
+                "trn_ids": [],
+                "locations": [],
+                "service_price": 13542.88,
+                "price_to_pay": 13542.88,
+                "time_to_deliver": "now",
+                "time_to_pickup": "now",
+                "insurance_price": 0,
+                "insurancevalue": 0,
+                "service_type": "messaging",
+                "bring_cash": false,
+                "how_much_cash": 0,
+                "delivery_location": {
+                  "type": "Point",
+                  "coordinates": [
+                    0,
+                    0
+                  ]
+                },
+                "pickup_location": {
+                  "type": "Point",
+                  "coordinates": [
+                    0,
+                    0
+                  ]
+                }
+              }
+            }
+            
+## Delivery Methods [/DeliveryItem/58f78d3c94b103d5221ae2d1/]
+
+### DeliveryItem/:id [GET]
+Obtener detalle de pedido
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Autorizathion: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status:
+    - response: Objeto JSON de deliveryItem.
+        - _id: Id unico del deliveryItem.
+        - user_id: Id unico del usuario.
+        - user_info: Objeto JSON de sesion usuario.
+        - item_name: Nombre del pedido con el formato establecido.
+        - date_created: Fecha de creación del pedido.
+        - instructions: Instrucciones establecidas para la entrega y transporte del pedido.
+        - overall_status: Estado general del pedido, cuando el valor es "requested" esta solicitado y esta disponible para ser tomado por un mensajero de Vueltap.
+            - Variaciones: 
+                - requested: solicitado
+                - started : iniciado por un mensajero de vueltap
+                - aborted: el mensajero lo tomo pero cancelo la etrega
+                - finished: entregado a su destino
+        - status: Estado del pedido.
+            - Variaciones:
+                -  Disponible: disponible para ser tomado por un mensajero
+                - Aceptado: Aceptado por un mensajero
+                - En Tránsito: En camino al destino
+                - Entregado: Entregado al destinatario
+                - Regresando: aplica sólo para servicios de ida y vuelta.
+                - Regresado: regresado al remitente, aplica sólo para servicios de ida y vuelta.
+                - Cancelado: Cancelado por el usuario
+                - Rechazado: Cancelado por el mensajero
+        - locations: arreglo de ubicaciones donde la primera es el punto de partida (recogida)
+        y la segunda es el punto de llegada (entrega).
+            - lat: latitud (formato estándar)
+            - lon: longitud (formato estándar)
+            - address: descripción obtenida del Geocoder de Google a partir de la latitud y la longitud.
+            - details: no aplica.
+        - service_price: Valor a pagar del servicio creado.
+        - service_type: Tipo de servicio generado mensajería (messaging)
+        - bring_cash: se debe llevar dinero adicional, false
+        - how_much_cash: Cuento dinero adicional debe llevar el mensajero 0
+
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "status": true,
+              "response": {
+                "_id": "58f78d3c94b103d5221ae2d1",
+                "user_id": "58703a04e8fa120cf0987c17",
+                "user_info": {
+                  "_id": "58703a04e8fa120cf0987c17",
+                  "email": "wilmeralzateroman@gmail.com",
+                  "email_confirmation": true,
+                  "active": true,
+                  "password": "$2a$10$PzZrli3mfND64ZvLho4GZehHRLQAsHH2QIjUBcwiDVbbbLhfrhZrK",
+                  "name": "Wilmer",
+                  "lastname": "Alzate Roman",
+                  "mobilephone": 3204204615,
+                  "__v": 0,
+                  "device": [],
+                  "stats": {
+                    "created_services": 181
+                  },
+                  "session": {
+                    "exp_date": "2017-05-03T05:00:00.000Z",
+                    "token": "wilmeralzateroman@gmail.com"
+                  },
+                  "corporate_payment": true,
+                  "favorites": [],
+                  "password_recover": {
+                    "status": true,
+                    "token": "$2a$10$ahwhHkWddBNvBWHMxmJ9HepQVtze42MywEh3pm0zueJmSP4U5akVK"
+                  }
+                },
+                "item_name": "Pedido Ciudad de Mascotas - Wilmer Alzate",
+                "date_created": "2017-04-19T16:15:56.498Z",
+                "pickup_object": {
+                  "lat": "0.000",
+                  "lon": "-0.000"
+                },
+                "delivery_object": {
+                  "lat": "0.000",
+                  "lon": "-0.000"
+                },
+                "signature_object": {
+                  "status": false,
+                  "signatureB64": ""
+                },
+                "insurance": false,
+                "instructions": "Pedido de snack para perro",
+                "payment_method": "corporate",
+                "overall_status": "requested",
+                "status": "available",
+                "rated": false,
+                "payment_token_id": null,
+                "promo_code_id": "",
+                "__v": 0,
+                "total_service": 0,
+                "discount": 0,
+                "images": [],
+                "trn_ids": [],
+                "locations": [
+                  {
+                    "image": [],
+                    "_id": "58f78d3c94b103d5221ae2d2",
+                    "details": "",
+                    "address": "AC 100 # 19 - 0 ,Bogotá D.C.,Colombia",
+                    "lat": 4.68631596952311,
+                    "lon": -74.0528381767905,
+                    "delivery_item_id": "58f78d3c94b103d5221ae2d1",
+                    "__v": 0,
+                    "is_checkin": false,
+                    "signed_uploaded": false,
+                    "image_uploaded": false
+                  },
+                  {
+                    "image": [],
+                    "_id": "58f78d3c94b103d5221ae2d3",
+                    "details": "",
+                    "address": "CL 12 # 15 - 0 ,Bogotá D.C.,Colombia",
+                    "lat": 4.60333898674767,
+                    "lon": -74.0812170856596,
+                    "delivery_item_id": "58f78d3c94b103d5221ae2d1",
+                    "__v": 0,
+                    "is_checkin": false,
+                    "signed_uploaded": false,
+                    "image_uploaded": false
+                  }
+                ],
+                "service_price": 13542.88,
+                "price_to_pay": 13542.88,
+                "declared_value": 0,
+                "time_to_deliver": "now",
+                "time_to_pickup": "now",
+                "priority": 0,
+                "insurance_price": 0,
+                "insurancevalue": 0,
+                "service_type": "messaging",
+                "bring_cash": false,
+                "how_much_cash": 0,
+                "delivery_location": {
+                  "type": "Point",
+                  "coordinates": [
+                    0,
+                    0
+                  ]
+                },
+                "pickup_location": {
+                  "type": "Point",
+                  "coordinates": [
+                    0,
+                    0
+                  ]
+                }
+              }
+            }
