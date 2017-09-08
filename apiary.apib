@@ -95,6 +95,7 @@ Descripción de campos JSON (Request), campos relevantes:
     - token: email del usuario u objeto token que se responde en el objeto session.token en el método login
 
 - Body:
+    - type_user: tipo de usuario el cual va a consultar (messaging)
     - insurance_value: valor del seguro, no aplica en este caso.
     - is_roundtrip: indica si el servicio es ida y vuelta, en este caso siempre es false
     - locations: arreglo de ubicaciones donde la primera es el punto de partida (recogida)
@@ -142,7 +143,8 @@ Descripción de campos JSON (Response), campos relevantes:
                         }
                 ],
                 "is_roundtrip": false,
-                "insurance_value": 0
+                "insurance_value": 0,
+                "type_user": "messaging"
             }
 
 + Response 200 (application/json)
