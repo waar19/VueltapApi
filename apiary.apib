@@ -164,6 +164,133 @@ Descripción de campos JSON (Response), campos relevantes:
               ]
             }
         
+
+
+## Address Methods Only Description [/GetPrice/]
+
+### GetPrice [POST]
+
+Metodo que permite obtener el precio dado un arreglo de ubicaciones
+[pos A, pos B, pos C, etc ...] donde pos A es el punto de partida y de ahi en adelante
+son puntos de entrega. Autenticacion basica. Ejemplo: Authorization: 
+'Basic ' + btoa(email + ':' + btoa(password)), el objeto locations  en el body
+contiene tanto latitud lat como longitud lon en formato estandar como se obtiene en
+Google Maps.
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la petición, siempre sera "user"
+    - Authorization: Autorización Basica para llamados http
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login
+
+- Body:
+    - type_user: tipo de usuario el cual va a consultar (messaging)
+    - insurance_value: valor del seguro, no aplica en este caso.
+    - is_roundtrip: indica si el servicio es ida y vuelta, en este caso siempre es false
+    - pickup_address: dirección de recogida en formato texto ej: calle 100 19 61
+    - delivery_address: dirección de entrega en formato texto ej: calle 70 7 30
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false.
+    - message: mensaje de respuesta con el valor del servicio.
+    - value: valor del servicio.
+    - insurance: valor del seguro, no aplica en este caso.
+    - duration: Duración aproximada de entrega del pedido, despues de ser tomado por un mensajero.
+    - durationValue: Duración aproximada de entrega desde de la ubicacion del mensajero hasta la direccion de entrega.
+    - originCity: arreglo en el que se encuentra la latitud y longitud de la ciudad en la cual se realizo el servicio,
+    por defecto Bogota D.C
+    
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+    
+    + Body
+    
+            {
+                "pickup_address": "calle 100 19",
+                "delivery_address": "calle 70 7 70",
+                "is_roundtrip": false,
+                "type_user": "messaging",
+                "insurance_value": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": true,
+                "message": "Valor a pagar aproximado: $5000",
+                "value": 5000,
+                "insurance": 0,
+                "duration": "1 min1 min",
+                "durationValue": "00",
+                "pickupdata": {
+                    "response": {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                -74.0528381767905,
+                                4.68631596952311
+                            ]
+                        },
+                        "properties": {
+                            "commonName": "AVENIDA CARLOS LLERAS RESTREPO",
+                            "country": "co",
+                            "address": "AC 100 # 19 - 0 ",
+                            "city": "bogota",
+                            "postcode": "110111",
+                            "accuracy": "line_interpolation",
+                            "admin1": "Colombia",
+                            "attribution": "geoapps",
+                            "admin2": "Bogotá D.C.",
+                            "id": null,
+                            "admin5": "Santa Bibiana",
+                            "admin3": "Bogotá D.C.",
+                            "admin4": "Usaquen"
+                        }
+                    }
+                },
+                "deliverydata": {
+                    "response": {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                -74.0570335915839,
+                                4.65321519636
+                            ]
+                        },
+                        "properties": {
+                            "commonName": null,
+                            "country": "co",
+                            "address": "CL 70 # 7 - 70 ",
+                            "city": "bogota",
+                            "postcode": null,
+                            "accuracy": "line_interpolation",
+                            "admin1": "Colombia",
+                            "attribution": "geoapps",
+                            "admin2": "Bogotá D.C.",
+                            "id": null,
+                            "admin5": "Quinta Camacho",
+                            "admin3": "Bogotá D.C.",
+                            "admin4": "Chapinero"
+                        }
+                    }
+                }
+            }
+
+
+
+
         
 ## Create Delivery Methods [/DeliveryItem/CreateMultiple/]
 
