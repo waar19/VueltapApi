@@ -170,11 +170,9 @@ Descripción de campos JSON (Response), campos relevantes:
 
 ### GetPrice [POST]
 
-Metodo que permite obtener el precio dado un arreglo de ubicaciones
-[pos A, pos B, pos C, etc ...] donde pos A es el punto de partida y de ahi en adelante
-son puntos de entrega. Autenticacion basica. Ejemplo: Authorization: 
+Metodo que permite obtener el precio dadas dos direcciones. Autenticacion basica. Ejemplo: Authorization: 
 'Basic ' + btoa(email + ':' + btoa(password)), el objeto locations  en el body
-contiene tanto latitud lat como longitud lon en formato estandar como se obtiene en
+contiene descripción de la dirección de recogida como la de entrega
 Google Maps.
 
 Descripción de campos JSON (Request), campos relevantes:
