@@ -716,3 +716,75 @@ Descripción de campos JSON (Response), campos relevantes:
                 }
               }
             }
+ 
+## Delivery Methods [/DeliveryTrace/5a38feb7663dcd0e6c246ab7/]  
+
+### DeliveryTrace/:delivery_id [GET]
+Obtener trazabilidad de estados
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Autorizathion: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+            
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "_id":"5a57d9c8cce1967b70a65e57",
+                    "delivery_id":"5a38feb7663dcd0e6c246ab7",
+                    "status":"accepted",
+                    "overall_status":"started",
+                    "__v":0,
+                    "date":"2018-01-11T21:40:24.720Z"
+                },
+                {
+                    "_id":"5a57d9d0cce1967b70a65e58",
+                    "delivery_id":"5a38feb7663dcd0e6c246ab7",
+                    "status":"available",
+                    "overall_status":"requested",
+                    "__v":0,
+                    "date":"2018-01-11T21:40:32.567Z"
+                },
+                {
+                    "_id":"5a57d9e0cce1967b70a65e59",
+                    "delivery_id":"5a38feb7663dcd0e6c246ab7",
+                    "status":"accepted",
+                    "overall_status":"started",
+                    "__v":0,
+                    "date":"2018-01-11T21:40:48.655Z"
+                },
+                {
+                    "_id":"5a57d9e6cce1967b70a65e5a",
+                    "delivery_id":"5a38feb7663dcd0e6c246ab7",
+                    "status":"in-transit",
+                    "overall_status":"started",
+                    "__v":0,
+                    "date":"2018-01-11T21:40:54.254Z"
+                },
+                {
+                    "_id":"5a57d9eccce1967b70a65e5b",
+                    "delivery_id":"5a38feb7663dcd0e6c246ab7",
+                    "status":"delivered",
+                    "overall_status":"finished",
+                    "__v":0,
+                    "date":"2018-01-11T21:41:00.555Z"
+                }
+            ]
