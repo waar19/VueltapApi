@@ -383,6 +383,17 @@ Descripción de campos JSON (Response), campos relevantes:
             - novelty: descripción de la novedad de entrega si el estado es not-delivered.
             - signed_uploaded: bandera que indica si ya se ha anexado la firma de evidencia de entrega.
             - image_uploaded: bandera que indica si ya se ha anexado la imagen de evidencia de entrega.
+            - images: Arreglo de imagenes de evidencia
+                - name: nombre del archivo de imagen
+                - url: url pública de la imagen (Amazon S3)
+                - owner: correo del usuario propietario de la imagen
+                - size: tamaño del archivo
+                - type: tipo de imagen, 1 para evidencia de entrega
+            - signature_object: Objeto de firma
+                - status: true si existe
+                - signatureB64: basw 64 del archivo de imagen de firma
+                - date_created: fecha de creación del objeto firma
+            - coordinates: Objeto de tipo 2DSphere, para calculo de ubicación.
         
 + Request (application/json)
 
