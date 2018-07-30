@@ -313,7 +313,7 @@ Descripción de campos JSON (Request), campos relevantes:
     - price_to_pay: Valor a pagar del servicio creado, que se obtiene en la respuesta del metodo GetPriceFromLocations.
     - ip_address: Direccion IP desde donde se realiza la petición del servicio.
     - item_name: Nombre del pedido, por defecto "Pedido Ciudad de Mascotas - Nombre de usuario"
-    - instructions: Instrucciones adicionales para la entrega y transporte del pedido.
+    - instructions: (opcional) Instrucciones adicionales para la entrega y transporte del pedido.
     - payment_method: Metodo por el cual se va a pagar el servicio, por defecto "corporate".
     - locations: arreglo de ubicaciones donde la primera es el punto de partida (recogida)
     y la segunda es el punto de llegada (entrega).
@@ -321,17 +321,25 @@ Descripción de campos JSON (Request), campos relevantes:
         - lon: longitud (formato estándar).
         - name: descripción obtenida del Geocoder de Google a partir de la latitud y la longitud.
         - details: no aplica.
-    - pickup_object: No aplica.
-    - delivery_object: No aplica.
-    - user_info: Objeto JSON de sesion usuario.
-    - user_id: Id unico del usuario.
+    - pickup_object: No aplica. No enviar.
+    - delivery_object: No aplica. No enviar.
+    - user_info: Objeto JSON de sesion usuario. obtenido en el método del Login.
+    - user_id: Id unico del usuario, obtenido en el objeto usuario del método login.
     - service_price: Valor a pagar del servicio creado, que se obtiene en la respuesta del metodo GetPriceFromLocations.
     - token_id: id del token de usuario, presente dentro del objeto usuario session.token.
     - service_type: Tipo de servicio generado el mismo que el tipo de usuario ver Login, para mensajería (messaging)
-    - bring_cash: Si se debe llevar dinero adicional esto se envia en false.
-    - how_much_cash: Cuanto dinero adicional debe llevar el mensajero, se envía en 0
-    - raise_cash: el mensajero debe recaudar dinero? envíar en true o false según indicaciones de vueltap,
-    - how_much_raise: cuanto dinero debe recaudar el mensajero, enviar en 0 si el parámetro anterior es false
+    - bring_cash: (opcional) Si se debe llevar dinero adicional esto se envia en false.
+    - how_much_cash: (opcional) Cuanto dinero adicional debe llevar el mensajero, se envía en 0, si el campo anterior en true, este campo es obligatorio
+    - raise_cash: (opcional) el mensajero debe recaudar dinero? envíar en true o false según indicaciones de vueltap,
+    - how_much_raise: cuanto dinero debe recaudar el mensajero, enviar en 0 si el parámetro anterior es false, si el campo anterior en true, este campo es obligatorio.
+    - locations: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
+        - address: cadena de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - details: (opcional) información adicional relevante que ayude el mensajero a realizar la entrega.
+        - lat: latitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - long: longitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - presumed_receptionist_name: (opcional) nombre del destinatario 
+        - presumed_receptionist_phone: (opcional) teléfono móvil del destinatario
+        - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran.
 
 Descripción de campos JSON (Response), campos relevantes:
 
@@ -366,7 +374,16 @@ Descripción de campos JSON (Response), campos relevantes:
         - bring_cash: Si se debe llevar dinero adicional esto se envia en false.
         - how_much_cash: Cuanto dinero adicional debe llevar el mensajero, se envía en 0
         - raise_cash: el mensajero debe recaudar dinero? envíar en true o false según indicaciones de vueltap,
-        - how_much_raise: cuanto dinero debe recaudar el mensajero, enviar en 0 si el parámetro anterior es false
+        - how_much_raise: cuanto dinero debe recaudar el mensajero, enviar en 0 si el parámetro anterior es false,
+        - locations: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
+            - address: cadena de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+            - details: (opcional) información adicional relevante que ayude el mensajero a realizar la entrega.
+            - lat: latitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+            - long: longitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+            - type: 1 para recogida, 2 para entrega
+            - presumed_receptionist_name: (opcional) nombre del destinatario 
+            - presumed_receptionist_phone: (opcional) teléfono móvil del destinatario
+            - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran.
         
 + Request (application/json)
 
@@ -394,15 +411,13 @@ Descripción de campos JSON (Response), campos relevantes:
                      "lat":4.68631596952311,
                      "lon":-74.0528381767905,
                      "address":"AC 100 # 19 - 0 ,Bogotá D.C.,Colombia",
-                     "details":"",
-                     "type": 1
+                     "details":""
                   },
                   {
                      "lat":4.60333898674767,
                      "lon":-74.0812170856596,
                      "address":"CL 12 # 15 - 0 ,Bogotá D.C.,Colombia",
                      "details":"",
-                     "type": 2,
                      "presumed_receptionist_name": "Fulano de Tal",
                      "presumed_receptionist_phone": "3112223344",
                      "order_number": "12345678"
