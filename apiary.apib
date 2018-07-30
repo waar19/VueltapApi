@@ -378,6 +378,11 @@ Descripción de campos JSON (Response), campos relevantes:
             - presumed_receptionist_name: (opcional) nombre del destinatario 
             - presumed_receptionist_phone: (opcional) teléfono móvil del destinatario
             - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran.
+            - checkin_date: fecha y hora (ISO Date) del checkin de la entrega.
+            - status: estado de la entrega. (delivered, not-delivered, in-process)
+            - novelty: descripción de la novedad de entrega si el estado es not-delivered.
+            - signed_uploaded: bandera que indica si ya se ha anexado la firma de evidencia de entrega.
+            - image_uploaded: bandera que indica si ya se ha anexado la imagen de evidencia de entrega.
         
 + Request (application/json)
 
