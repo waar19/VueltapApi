@@ -648,6 +648,69 @@ Descripción de campos JSON (Response), campos relevantes:
               }
             }
             
+
+
+
+
+## Update WareHouses Method [/Admin/UpdateWarehousesLinio/]
+
+### UpdateWarehousesLinio [PUT]
+Método de creación de pedidos
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Autorizathion: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+- Body:
+    - insurancevalue: Valor del seguro, no aplica.
+    - insurance: Validación si el servicio viene asegurado, no aplica.
+    - insurance_price: Valor del seguro, no aplica.
+    - promo_code_id: Codigo de promocion con descuento, obsequiado al usuario, no aplica.
+    - discount: Valor del descuento aplicado al codigo de promoción, no aplica.
+    - price_to_pay: Valor a pagar del servicio creado, que se obtiene en la respuesta del metodo GetPriceFromLocations.
+    - ip_address: Direccion IP desde donde se realiza la petición del servicio.
+    - item_name: Nombre del pedido, por defecto "Pedido Ciudad de Mascotas - Nombre de usuario"
+    - instructions: (opcional) Instrucciones adicionales para la entrega y transporte del pedido.
+    - payment_method: Metodo por el cual se va a pagar el servicio, por defecto "corporate".
+    - pickup_object: No aplica. No enviar.
+    - delivery_object: No aplica. No enviar.
+    - user_info: Objeto JSON de sesion usuario. obtenido en el método del Login.
+    - user_id: Id unico del usuario, obtenido en el objeto usuario del método login.
+    - service_price: Valor a pagar del servicio creado, que se obtiene en la respuesta del metodo GetPriceFromLocations.
+    - token_id: id del token de usuario, presente dentro del objeto usuario session.token.
+    - service_type: Tipo de servicio generado el mismo que el tipo de usuario ver Login, para mensajería (messaging)
+    - bring_cash: (opcional) Si se debe llevar dinero adicional esto se envia en false.
+    - how_much_cash: (opcional) Cuanto dinero adicional debe llevar el mensajero, se envía en 0, si el campo anterior en true, este campo es obligatorio
+    - raise_cash: (opcional) el mensajero debe recaudar dinero? envíar en true o false según indicaciones de vueltap,
+    - how_much_raise: cuanto dinero debe recaudar el mensajero, enviar en 0 si el parámetro anterior es false, si el campo anterior en true, este campo es obligatorio.
+    - locations: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
+        - address: cadena de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - details: (opcional) información adicional relevante que ayude el mensajero a realizar la entrega.
+        - lat: latitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - long: longitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - presumed_receptionist_name: (opcional) nombre del destinatario 
+        - presumed_receptionist_phone: (opcional) teléfono móvil del destinatario
+        - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran.
+
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+
+
++ Response 200 (application/json)
+
+    + Body
+
+
+
+            
 ## Delivery Methods [/DeliveryItem/5b5b53b7bddb224bb95976c3/]
 
 ### DeliveryItem/:id [GET]
