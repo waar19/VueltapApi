@@ -665,7 +665,7 @@ Descripción de campos JSON (Request), campos relevantes:
     - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
 
 - Body:
-    - seller: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
+    - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de vueltap
         - shop: nombre único del establecimiento (comercio, seller)
         - contact_name: nombre de la persona contacto del establecimiento (comercio, seller)
         - email_address: dirección de correo de la persona contacto del establecimiento (comercio, seller)
@@ -682,10 +682,7 @@ Descripción de campos JSON (Request), campos relevantes:
             type: user
             Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
             token: wilmeralzateroman@gmail.com
-
-
-+ Response 200 (application/json)
-
+            
     + Body
 
             {
@@ -732,6 +729,11 @@ Descripción de campos JSON (Request), campos relevantes:
                     }
                 ]
             }
+
+
++ Response 200 (application/json)
+
+    
 
             
 ## Delivery Methods [/DeliveryItem/5b5b53b7bddb224bb95976c3/]
