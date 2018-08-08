@@ -734,39 +734,35 @@ Descripción de campos JSON (Request), campos relevantes:
 + Response 200 (application/json)
 
         {
-            "status":true,
-            "message":"",
-            "response":{
-            "sellers_saved":[
-                {
-                "shop":"DIEGO QUINTERO",
-                "shop_id":"1"
+        "status":true,
+        "message":"",
+        "response":{
+                "saved":{
+                    "count":3,
+                    "shop_saved":[
+                        {
+                        "shop":"DIEGO QUINTERO",
+                        "shop_id":"1"
+                        },
+                        {
+                        "shop":"WILMER ALZATE",
+                        "shop_id":"2"
+                        },
+                        {
+                        "shop":"CAMILO ARANGO",
+                        "shop_id":"3"
+                        }
+                    ]
                 },
-                {
-                "shop":"WILMER ALZATE",
-                "shop_id":"2"
-                },
-                {
-                "shop":"CAMILO ARANGO",
-                "shop_id":"3"
-                }
-                ],
-                "sellers_not_saved":[
-                {
-                "shop":"DIEGO ESCOBAR",
-                "address":"carrera 2 88"
-                }
-            ],
-            "saved":3,
-            "not_saved":{
-                "count":1,
-                "reason":"Address is not valid. Can't verify address for shop.",
-                "shop_not_saved":[
-                    {
-                    "shop":"DIEGO ESCOBAR",
-                    "address":"carrera 2 88"
-                    }
-                ]
+                "not_saved":{
+                    "count":1,
+                    "reason":"Address is not valid. Can't verify address for shop.",
+                    "shop_not_saved":[
+                        {
+                        "shop":"DIEGO ESCOBAR",
+                        "address":"carrera 2 88"
+                        }
+                    ]
                 }
             }
         }
