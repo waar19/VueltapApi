@@ -674,6 +674,23 @@ Descripción de campos JSON (Request), campos relevantes:
         - zip_code: zip code del establecimiento (comercio, seller)
         - city: nombre de la ciudad de ubicación del establecimiento (comercio, seller)
         - municipality: nombre del departamento, provinica, del establecimiento (comercio, seller)
+        
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: Estado de la respuesta true = exitosa, false = error
+    - message: en caso de error este parámetro contiene la descripción del error.
+    - saved: Arreglo de sellers almacenados y/o actualizados
+        - count: cantidad de seller almacenados y/o actualizados
+        - shop_saved: Arreglo con los sellers almacenados y7o actualizados
+            - shop: equivalente al campo shop enviado en la petición (único)
+            - shop_id: identificador único del seller almacenado y/o actualizado al lado de vueltap
+    - not_saved: Arreglo que contiene la especificación de los shop (sellers) que no se pudieron almacenar
+        - count: cantidad de seller no almacenados y/o no actualizados
+        - reason: mensaje que contiene la descripción de la razón del error.
+        - shop_not_saved: Areglo que contiene la especificación de los sellers
+            - shop: descripción (código único) del seller que no se pudo almacenar y/o actualizar
+            - addres: dirección del seller que no se pudo almacenar (esto se retorna porque en la mayoria de los casos se retorna un error porque no se pudo verificar la dirección física del seller)
 
 + Request (application/json)
 
@@ -995,6 +1012,23 @@ Descripción de campos JSON (Request), campos relevantes:
 Descripción de campos JSON (Response), campos relevantes:
 
 - Body:
+Arreglo de estados
+    - _id: identificador unico del registro del estado en la base de datos
+    - delivery_id: identificador del servicio al que pertenece el estado
+    - status: estado del servicio, pueden ser:
+        - available: disponbile para ser aceptado por un mensajero
+        - accepted: el mensajero lo acepto en la aplicación móvil
+        - collected: el mensajero ya recolecto el producto a entregar
+        - in-transit: en transito hacia direcciones de entrega.
+        - returning: cuando el servicio representa ida y vuelta, es el estado que indica que el mensajero está retornando al punto de partida, sitio de recolección
+        - delivered: entregado        
+    - overall_status: estado en general del servicio, es para uso interno
+        - requested: solicitado por el usuario
+        - started: iniciado por el mensajero
+        - in-process: en proceso de entrega
+        - finished: finalizado/entregado
+        - not-deliverd: no entregado, sucedió una novedad al entregar
+    - date: fecha en la que se registra el movimiento, fecha en que se registro el estado
 
 + Request (application/json)
 
