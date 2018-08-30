@@ -654,10 +654,10 @@ Descripción de campos JSON (Response), campos relevantes:
 
 
 
-## Update WareHouses Method [/Admin/UpdateWarehousesLinio/]
+## Update WareHouses Method [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
-### UpdateWarehousesLinio [PUT]
-Método de creación de pedidos
+### UpdateWarehouses/:user_email [PUT]
+Método de actualización/creación de bodegas
 
 Descripción de campos JSON (Request), campos relevantes:
 
@@ -666,6 +666,9 @@ Descripción de campos JSON (Request), campos relevantes:
     - Autorizathion: Autorización basica para los llamadas http.
     - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
 
+- Params:
+    - user_email: Correo de usuario que realiza la petición.
+    
 - Body:
     - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de vueltap
         - shop: nombre único del establecimiento (comercio, seller)
@@ -684,7 +687,7 @@ Descripción de campos JSON (Response), campos relevantes:
     - message: en caso de error este parámetro contiene la descripción del error.
     - saved: Arreglo de sellers almacenados y/o actualizados
         - count: cantidad de seller almacenados y/o actualizados
-        - shop_saved: Arreglo con los sellers almacenados y7o actualizados
+        - shop_saved: Arreglo con los sellers almacenados y/o actualizados
             - shop: equivalente al campo shop enviado en la petición (único)
             - shop_id: identificador único del seller almacenado y/o actualizado al lado de vueltap
     - not_saved: Arreglo que contiene la especificación de los shop (sellers) que no se pudieron almacenar
@@ -754,7 +757,7 @@ Descripción de campos JSON (Response), campos relevantes:
 
         {
         "status":true,
-        "message":"",
+        "message":"Proceso finalizado",
         "response":{
                 "saved":{
                     "count":3,
