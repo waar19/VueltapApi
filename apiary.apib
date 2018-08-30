@@ -1011,6 +1011,10 @@ Descripción de campos JSON (Request), campos relevantes:
     - Autorizathion: Autorización basica para los llamadas http.
     - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
 
+
+- Params:
+    - delivery_id: ide del servicio
+
 Descripción de campos JSON (Response), campos relevantes:
 
 - Body:
@@ -1087,3 +1091,30 @@ Arreglo de estados
                     "date":"2018-01-11T21:41:00.555Z"
                 }
             ]
+            
+            
+            
+## Delivery Trace Methods [/CreateFromLinio/]  
+
+### CreateFromLinio [PUT]
+
+
+Método de creación de pedidos linio
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type
+    
+- Body:
+    - algo:
+    
++ Request (multipart/form-data)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+
++ Response 200 (application/json)
