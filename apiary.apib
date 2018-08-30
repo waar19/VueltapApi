@@ -1104,10 +1104,26 @@ Método de creación de pedidos linio
 Descripción de campos JSON (Request), campos relevantes:
 
 - Header:
-    - type
+    - type: tipo de usuario
+    - Authorization: parámetros de usuario y clave en formato Basic
+    - token: email del usuario que realiza la petición
     
 - Body:
-    - algo:
+    - algo: asfdsafsaf
+    
+    
+Descripción de campos JSON (Response), campos relevantes:
+
+
+- Header:
+    - type: tipo de usuario
+    - Authorization: parámetros de usuario y clave en formato Basic
+    - token: email del usuario que realiza la petición
+
+- Body:
+    - respuesta1: asddfsaf
+
+    
     
 + Request (multipart/form-data)
 
@@ -1120,7 +1136,10 @@ Descripción de campos JSON (Request), campos relevantes:
     + Body
     
             {
-                "user_id:"12412"
+                "user_id:"12412",
+                "locations": [
+                    "lat": 23414312
+                ]
             }
 
 + Response 200 (application/json)
