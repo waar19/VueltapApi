@@ -1094,9 +1094,42 @@ Arreglo de estados
             
             
             
-## Delivery Trace Methods [/CreateFromLinio/]  
+## Service Creation [/CreateFromLinio/]  
 
 ### CreateFromLinio [PUT]
+
+
+Método de creación de pedidos linio
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type
+    
+- Body:
+    - algo:
+    
++ Request (multipart/form-data)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+    
+            {
+                "user_id:"12412"
+            }
+
++ Response 200 (application/json)
+
+
+
+## Delivery Create In [/CreateFromLinio1/]  
+
+### CreateFromLinio1 [PUT]
 
 
 Método de creación de pedidos linio
