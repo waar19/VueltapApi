@@ -1170,7 +1170,7 @@ Descripción de campos JSON (Request), campos relevantes:
                         "email": "sergeaguilera@example.com"
                     },
                     {
-                        "shop_id": "4",
+                        "shop_id": "3",
                         "direccion": "Calle 2a #69f-2",
                         "peso": "",
                         "instrucciones": "7th floor",
@@ -1193,3 +1193,15 @@ Descripción de campos JSON (Request), campos relevantes:
             }
 
 + Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": true,
+                "message": "Proceso finalizado!",
+                "response": {
+                    "service_create": 3,
+                    "total_not_create": 0,
+                    "service_not_create": []
+                }
+            }
