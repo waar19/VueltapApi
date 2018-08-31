@@ -1200,8 +1200,31 @@ Descripción de campos JSON (Request), campos relevantes:
                 "status": true,
                 "message": "Proceso finalizado!",
                 "response": {
-                    "service_create": 3,
+                    "service_create": 5,
                     "total_not_create": 0,
                     "service_not_create": []
                 }
             }
+            
+
+## Delivery Create In [/Delivery/CreateDeliveryByJSON]
+
+### CreateDeliveryByJson [POST]
+
+
+Método de creación de pedidos pertenecientes a una bodega (ÚNICA BODEGA)
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario
+    - Authorization: parámetros de usuario y clave en formato Basic
+    - token: email del usuario que realiza la petición
+    
+- Body:
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Body
