@@ -78,7 +78,7 @@ Descripción de campos JSON (Response), campos relevantes:
 
 ## Get Price From Multiple Address [/GetPriceFromLocations/]
 
-### GetPrice From Locations [POST]
+### GetPriceFromLocations [POST]
 
 Metodo que permite obtener el precio dado un arreglo de ubicaciones
 [pos A, pos B, pos C, etc ...] donde pos A es el punto de partida y de ahi en adelante
@@ -168,7 +168,7 @@ Descripción de campos JSON (Response), campos relevantes:
 
 ## Get Price From Address Description [/GetPrice/]
 
-### Get Price [POST]
+### GetPrice [POST]
 
 Metodo que permite obtener el precio dadas dos direcciones. Autenticacion basica. Ejemplo: Authorization: 
 'Basic ' + btoa(email + ':' + btoa(password)), el objeto locations  en el body
@@ -294,7 +294,7 @@ Descripción de campos JSON (Response), campos relevantes:
         
 ## Create Delivery One Per One [/DeliveryItem/CreateMultiple/]
 
-### Create Delivery [POST]
+### CreateMultiple [POST]
 Método de creación de pedidos uno a uno (SIN BODEGA ASOCIADA)
 
 Descripción de campos JSON (Request), campos relevantes:
@@ -790,7 +790,7 @@ Descripción de campos JSON (Response), campos relevantes:
         }
 
             
-## Delivery Methods [/DeliveryItem/5b5b53b7bddb224bb95976c3/]
+## Get Delivery Information [/DeliveryItem/5b5b53b7bddb224bb95976c3/]
 
 ### DeliveryItem/:id [GET]
 Obtener detalle de pedido
