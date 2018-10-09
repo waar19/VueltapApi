@@ -671,6 +671,7 @@ Descripción de campos JSON (Request), campos relevantes:
     
 - Body:
     - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de vueltap
+        - shop_id: identificador único del establecimiento (comercio, seller)
         - shop: nombre único del establecimiento (comercio, seller)
         - contact_name: nombre de la persona contacto del establecimiento (comercio, seller)
         - email_address: dirección de correo de la persona contacto del establecimiento (comercio, seller)
@@ -710,6 +711,7 @@ Descripción de campos JSON (Response), campos relevantes:
             {
                 "seller":[
                     {
+                    "shop_id": "1111",
                     "shop":"DIEGO QUINTERO",
                     "contact_name":"diego quintero loaiza",
                     "email_address":"diego@mail.com",
@@ -720,6 +722,7 @@ Descripción de campos JSON (Response), campos relevantes:
                     "municipality":"Cundinamarca"
                     },
                     {
+                    "shop_id": "1112",
                     "shop":"WILMER ALZATE",
                     "contact_name":"wilmer alzate",
                     "email_address":"wilmer@mail.com",
@@ -730,6 +733,7 @@ Descripción de campos JSON (Response), campos relevantes:
                     "municipality":"Cundinamarca"
                     },
                     {
+                    "shop_id": "1113",
                     "shop":"DIEGO ESCOBAR",
                     "contact_name":"diego escobar",
                     "email_address":"diego@mail.com",
@@ -740,6 +744,7 @@ Descripción de campos JSON (Response), campos relevantes:
                     "municipality":"Cundinamarca"
                     },
                     {
+                    "shop_id": "1114",
                     "shop":"CAMILO ARANGO",
                     "contact_name":"camilo arango",
                     "email_address":"camilo@mail.com",
@@ -764,15 +769,15 @@ Descripción de campos JSON (Response), campos relevantes:
                     "shop_saved":[
                         {
                         "shop":"DIEGO QUINTERO",
-                        "shop_id":"1"
+                        "warehouse_id":"1"
                         },
                         {
                         "shop":"WILMER ALZATE",
-                        "shop_id":"2"
+                        "warehouse_id":"2"
                         },
                         {
                         "shop":"CAMILO ARANGO",
-                        "shop_id":"3"
+                        "warehouse_id":"3"
                         }
                     ]
                 },
@@ -790,9 +795,9 @@ Descripción de campos JSON (Response), campos relevantes:
         }
 
             
-## Get Delivery Information [/DeliveryItem/5ba26480dcb0bc705ddfc865/]
+## Get Delivery Information [/DeliveryItemByCode/vg-12763]
 
-### DeliveryItem/:id [GET]
+### DeliveryItem/:service_code [GET]
 Obtener detalle de pedido
 
 Descripción de campos JSON (Request), campos relevantes:
