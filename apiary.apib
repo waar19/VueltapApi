@@ -670,9 +670,9 @@ Descripción de campos JSON (Request), campos relevantes:
     - user_email: Correo de usuario que realiza la petición.
     
 - Body:
-    - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de vueltap, si se reciben parametros vacios, se reemplazaran con esta información.
-        - shop_id: identificador único del establecimiento (comercio, seller)
-        - shop: nombre único del establecimiento (comercio, seller)
+    - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de vueltap, si se reciben parametros vacios, se reemplazaran con esta información, si no se quiere actualizar un valor no se envía en el item del arreglo seller.
+        - shop_id: (Obligatorio) identificador único del establecimiento (comercio, seller)
+        - shop: (Obligatorio) nombre único del establecimiento (comercio, seller)
         - contact_name: nombre de la persona contacto del establecimiento (comercio, seller)
         - email_address: dirección de correo de la persona contacto del establecimiento (comercio, seller)
         - address: dirección del establecimiento (comercio, seller)
