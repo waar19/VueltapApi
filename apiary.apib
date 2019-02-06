@@ -1334,3 +1334,164 @@ Descripción de campos JSON (Request), campos relevantes:
                     ]
                 }
             }
+            
+    
+    
+## Create DeliveryItem Service [/DeliveryItem/Create/]
+
+### CreateMultiple [POST]
+Método de creación de pedidos una recogida una entrega (SIN BODEGA ASOCIADA)
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Autorizathion: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+- Body:
+    - ip_address: Direccion IP desde donde se realiza la petición del servicio.
+    - instructions: (opcional) Instrucciones adicionales para la entrega y transporte del pedido.
+    - payment_method: Metodo por el cual se va a pagar el servicio, enviar "corporate".
+    - user_info: Objeto JSON de sesion usuario. obtenido en el método del Login.
+    - user_id: Id unico del usuario, obtenido en el objeto usuario del método login.
+    - service_type: Tipo de servicio generado el mismo que el tipo de usuario ver Login, para mensajería (messaging)
+    - locations: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
+        - address: cadena de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - details: (opcional) información adicional relevante que ayude el mensajero a realizar la entrega.
+        - lat: latitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - long: longitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+        - presumed_receptionist_name: (opcional) nombre del destinatario 
+        - presumed_receptionist_phone: (opcional) teléfono móvil del destinatario
+        - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran.
+        - weight: peso del paquete en kilogramos, numerico ejemplo 1, 2, 3, etc..
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false.
+    - message: mensaje de confirmacion en caso de que el estatus sea true.
+    - response: Objeto JSON deliveryItem con la informacion del pedido creado.
+        - user_id: Id unico de usuario.
+        - user_info: Objeto JSON de sesion de usuario, contestado en la petición de login.
+        - date_created: Fecha de creación del pedido, formato ISO GMT -5.
+        - instructions: Instrucciones establecidas para la entrega y transporte del pedido
+        - status: Estado del pedido.
+            - Variaciones:
+                -  Disponible: disponible para ser tomado por un mensajero
+                - Aceptado: Aceptado por un mensajero
+                - En Tránsito: En camino al destino
+                - Entregado: Entregado al destinatario
+                - Regresando: aplica sólo para servicios de ida y vuelta.
+                - Regresado: regresado al remitente, aplica sólo para servicios de ida y vuelta.
+                - Cancelado: Cancelado por el usuario
+                - Rechazado: Cancelado por el mensajero
+        - _id: id unico del pedido (DeliveryItem).
+        - locations: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
+            - address: cadena de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+            - details: (opcional) información adicional relevante que ayude el mensajero a realizar la entrega.
+            - lat: latitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+            - long: longitud de la dirección, previamente verificada por el servicio de GetPriceFromLocations
+            - type: 1 para recogida, 2 para entrega
+            - weight: peso del paquete en kilogramos, numerico ejemplo 1, 2, 3, etc..
+            - presumed_receptionist_name: (opcional) nombre del destinatario 
+            - presumed_receptionist_phone: (opcional) teléfono móvil del destinatario
+            - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran.
+            - checkin_date: fecha y hora (ISO Date) del checkin de la entrega.
+            - status: estado de la entrega. (delivered, not-delivered, in-process)
+            - novelty: descripción de la novedad de entrega si el estado es not-delivered.
+            - signed_uploaded: bandera que indica si ya se ha anexado la firma de evidencia de entrega.
+            - image_uploaded: bandera que indica si ya se ha anexado la imagen de evidencia de entrega.
+            - images: Arreglo de imagenes de evidencia
+                - name: nombre del archivo de imagen
+                - url: url pública de la imagen (Amazon S3)
+                - owner: correo del usuario propietario de la imagen
+                - size: tamaño del archivo
+                - type: tipo de imagen, 1 para evidencia de entrega
+            - signature_object: Objeto de firma
+                - status: true si existe
+                - signatureB64: basw 64 del archivo de imagen de firma
+                - date_created: fecha de creación del objeto firma
+            - coordinates: Objeto de tipo 2DSphere, para calculo de ubicación.
+        
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+    
+            {
+               "ip_address":"181.33.139.118",
+               "instructions":"Pedido de snack para perro",
+               "payment_method":"corporate",
+               "locations":[
+                  {
+                     "lat":4.68631596952311,
+                     "lon":-74.0528381767905,
+                     "address":"AC 100 # 19 - 0 ,Bogotá D.C.,Colombia",
+                     "details":""
+                  },
+                  {
+                     "lat":4.60333898674767,
+                     "lon":-74.0812170856596,
+                     "address":"CL 12 # 15 - 0 ,Bogotá D.C.,Colombia",
+                     "details":"",
+                     "presumed_receptionist_name": "Fulano de Tal",
+                     "presumed_receptionist_phone": "3112223344",
+                     "order_number": "12345678"
+                  }
+               ],
+               "user_info":{
+                    "password_recover" : {
+                        "status" : true,
+                        "token" : "$2a$10$GP/cLlWSaXXbhE4pX770gOmK8jDk1./eTZ4ZIEubtREaxGLNwLF4G"
+                    },
+                    "location" : {
+                        "address" : "AC 100 # 19 - 0  Bogotá D.C.",
+                        "lat" : "4.68631596952311",
+                        "lon" : "-74.0528381767905"
+                    },
+                    "session" : {
+                        "token" : "wilmeralzateroman@gmail.com",
+                        "exp_date" : "2018-08-01T05:00:00.000Z"
+                    },
+                    "city" : "bogota",
+                    "favorites" : [ ],
+                    "set_catcheable_delivery" : true,
+                    "type" : "messaging",
+                    "corporate_payment" : true,
+                    "step_charging" : false,
+                    "show_deliver_info_window" : false,
+                    "is_countable_user" : true,
+                    "in_black_list" : false,
+                    "send_sms_in_creation" : false,
+                    "_id" : "5a8c8434ef9ddf018d0d6094",
+                    "registration_date" : "2018-02-20T20:25:24.700Z",
+                    "email" : "wilmeralzateroman@gmail.com",
+                    "email_confirmation" : true,
+                    "active" : true,
+                    "password" : "$2a$10$Bnqd0xoz32szvdnmpsirSeYJIJHGEyyKWzucIFowiURVVEZaovpu2",
+                    "name" : "Wilmer",
+                    "lastname" : "Alzate Roman",
+                    "mobilephone" : 3185022770,
+                    "device" : [ ],
+                    "stats" : {
+                        "created_services" : 0
+                    },
+                    "wpn_token" : "cH9Db1GekSU:APA91bHot9BJNqpROHscX6oq6CLXWLRERmahgW554huRusn-qC4nVjZGsuWcs5t5C63V0L1Sr6CT3OMmjUhoJNIqtEdpUjGdQtEA5XxDS4T8A_geBUe6EQBCy6CSsXnDPX0rjigI1Bin",
+                    "wpn_endpoint" : "https://fcm.googleapis.com/fcm/send/cWm8LCe9Pkc:APA91bGP2ytyFUULKH3bR84hptIf8UEU6qQprWyY7tYj-2-QnMI6j7dQYY30bxsR-pjmWa-vbvJje6hhMCsxQFdmD7BYT8bVs2fSAyuKDaWa90Rlwr9N4ljul4jB-ffpe9FV-C83fItqjk6nfwG4nNH_WKIUcXLP4w",
+                    "wpn_auth" : "4JFiTgsNv7vYRHtAq6GZKQ",
+                    "wpn_p256dh" : "BJp9nzb3G0Fbs3U4ORcKD1ELsG9o_6XZvXe6N8eUJjAmTJvp8aA-mUajnA4cXMcrWrf5INyxIShtK9jQ2rJUMac"
+               },
+               "user_id":"5a8c8434ef9ddf018d0d6094",
+               "service_type": "messaging",
+               
+            }
+
++ Response 200 (application/json)
+
+    + Body
