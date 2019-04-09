@@ -1127,23 +1127,26 @@ Descripción de campos JSON (Request), campos relevantes:
 Descripción de campos JSON (Response), campos relevantes:
 
 - Body:
-Arreglo de estados
-    - _id: identificador unico del registro del estado en la base de datos
-    - delivery: identificador del servicio al que pertenece el estado
-    - user: identificador de usuario que creo el servicio
-    - status: estado del servicio, pueden ser:
-        - schedule: el servicio fue programado
-        - available: disponbile para ser aceptado por un mensajero
-        - cancelled: cancelación del servicio
-        - accepted: el mensajero lo acepto en la aplicación móvil
-        - collected: el mensajero ya recolecto el producto a entregar
-        - not-collected: servicio no pudo ser recogido
-        - in-transit: en transito hacia direcciones de entrega
-        - deliver_attempt: el paquete no puede ser entrega y se debe realizar un nuevo intento de entrega
-        - returning: cuando el servicio representa ida y vuelta, es el estado que indica que el mensajero está retornando al punto de partida, sitio de recolección
-        - returned: cuando el servicio es devuelto al punto de recoleccion.
-        - delivered: entregado
-    - date: fecha y hora (ISO) en la que se registra el movimiento, fecha en que se registro el estado
+Objeto JSON con estado de la petición y arreglo de estados
+    - status: estado de la respuesta
+    - message: mensaje de la respuesta
+    - response: arreglo que contiene la trazabilidad
+        - _id: identificador unico del registro del estado en la base de datos
+        - delivery: identificador del servicio al que pertenece el estado
+        - user: identificador de usuario que creo el servicio
+        - status: estado del servicio, pueden ser:
+            - schedule: el servicio fue programado
+            - available: disponbile para ser aceptado por un mensajero
+            - cancelled: cancelación del servicio
+            - accepted: el mensajero lo acepto en la aplicación móvil
+            - collected: el mensajero ya recolecto el producto a entregar
+            - not-collected: servicio no pudo ser recogido
+            - in-transit: en transito hacia direcciones de entrega
+            - deliver_attempt: el paquete no puede ser entrega y se debe realizar un nuevo intento de entrega
+            - returning: cuando el servicio representa ida y vuelta, es el estado que indica que el mensajero está retornando al punto de partida, sitio de recolección
+            - returned: cuando el servicio es devuelto al punto de recoleccion.
+            - delivered: entregado
+        - date: fecha y hora (ISO) en la que se registra el movimiento, fecha en que se registro el estado
 
 + Request (application/json)
 
