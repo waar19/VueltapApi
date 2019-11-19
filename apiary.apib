@@ -1380,7 +1380,6 @@ Descripción de campos JSON (Request), campos relevantes:
                 }
             }
             
-
 ## Delivery Create Unique Seller [/Delivery/CreateDeliveryByJSON]
 
 ### CreateDeliveryByJSON [POST]
@@ -1499,7 +1498,7 @@ Descripción de campos JSON (Request), campos relevantes:
 
 - Header:
     - type: tipo de usuario que realiza la peticion, por defecto "user".
-    - Autorizathion: Autorización basica para los llamadas http.
+    - Authorization: Autorización basica para los llamadas http.
     - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
 
 - Body:
@@ -1741,4 +1740,160 @@ Descripción de campos JSON (Response), campos relevantes:
                 "code_service": 1005824,
                 "__v": 0
               }
+            }
+            
+## Cancel DeliveryItem By Code [/DeliveryItem/Cancel]
+
+### Cancel Delivery Item [PUT]
+
+Método de cancelación de servicio por código
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Authorization: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+- Body:
+    - service_code: Código de servicio asignado a la entrega al momento de ser creada.
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false.
+    - message: mensaje de confirmacion en caso de que el estatus sea true.
+    - response: objeto del servicio que fue cancelado.
+        
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+    
+            {
+                "service_code": 1146851
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": true,
+                "message": "Servicio Cancelado",
+                "response": {
+                    "devolution_signature_object": {
+                        "status": false,
+                        "date_created": "2019-11-16T18:03:14.203Z"
+                    },
+                    "signature_object": {
+                        "status": false,
+                        "date_created": "2019-11-16T18:03:14.203Z"
+                    },
+                    "show_deliver_info": false,
+                    "roundtrip": false,
+                    "checkin_is_required": false,
+                    "locations": [
+                        {
+                            "lat": 4.675135594000039,
+                            "lon": -74.06083897999991,
+                            "address": "CL 87 # 21 - 69  Bogotá D.C.",
+                            "details": "Casa verde puertas rojas",
+                            "type": 1,
+                            "presumed_receptionist_name": "",
+                            "presumed_receptionist_phone": "",
+                            "order_number": "",
+                            "checkin_date": "",
+                            "identifier": 0,
+                            "is_checkin": false,
+                            "status": "in-process",
+                            "images": [],
+                            "image_uploaded": false,
+                            "signed_uploaded": false,
+                            "delivery_receiver": null,
+                            "delivery_receiver_name": null,
+                            "novelty": null,
+                            "signature_object": {
+                                "status": false,
+                                "signatureB64": null,
+                                "date_created": null
+                            }
+                        },
+                        {
+                            "lat": 4.700571970000055,
+                            "lon": -74.08651466099991,
+                            "address": "CL 94 # 72A - 95 Bogotá D.C.",
+                            "details": "",
+                            "type": 2,
+                            "presumed_receptionist_name": "Elba Surita",
+                            "presumed_receptionist_phone": "",
+                            "order_number": "123456",
+                            "checkin_date": "",
+                            "identifier": 1,
+                            "is_checkin": false,
+                            "status": "in-process",
+                            "images": [],
+                            "image_uploaded": false,
+                            "signed_uploaded": false,
+                            "delivery_receiver": null,
+                            "delivery_receiver_name": null,
+                            "novelty": null,
+                            "signature_object": {
+                                "status": false,
+                                "signatureB64": null,
+                                "date_created": null
+                            },
+                            "coordinates": [
+                                -74.08651466099991,
+                                4.700571970000055
+                            ]
+                        }
+                    ],
+                    "status": "cancelled",
+                    "rated": false,
+                    "pickup_try_counter": 0,
+                    "deliver_try_counter": 0,
+                    "bring_cash": false,
+                    "how_much_cash": 0,
+                    "raise_cash": false,
+                    "how_much_raise": 0,
+                    "order_number": "123456",
+                    "step_count": 1,
+                    "shop_id": "001",
+                    "trace": [
+                        "5dd039e2fd1a8741f8595310",
+                        "5dd37ba153f92455b43ee2c9"
+                    ],
+                    "is_catcheable_by_messenger": false,
+                    "in_route": false,
+                    "for_devolution": false,
+                    "collect_counter": 0,
+                    "_id": "5dd039e2fd1a8741f859530f",
+                    "road_map": null,
+                    "user": "5a8c8434ef9ddf018d0d6094",
+                    "item_name": "Servicio Wilmer A. - CEDI Wilmer Alzate",
+                    "instructions": "Wilmer A. ",
+                    "service_type": "messaging",
+                    "date_created": "2019-11-16T18:03:14.201Z",
+                    "presumed_receptionist_name": "Elba Surita",
+                    "presumed_receptionist_phone": "",
+                    "sku": "",
+                    "upc": "",
+                    "category": "",
+                    "product_price": "",
+                    "product_name": "",
+                    "city": "bogota",
+                    "pickup_images": [],
+                    "delivery_images": [],
+                    "devolution_images": [],
+                    "code_service": 1146851,
+                    "__v": 0,
+                    "collection_form": "5dd2c842fd1a8741f8595312",
+                    "driver": "5d76dda212414a0304448704"
+                }
             }
