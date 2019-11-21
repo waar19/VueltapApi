@@ -1248,6 +1248,8 @@ Descripción de campos JSON (Request), campos relevantes:
         - category(opcional): categoría del producto a enviar
         - product_name(opcional): nombre del producto a enviar
         - product_price(opcional): precio del producto a enviar
+        - internal_code(opcional): codigo interno del cliente
+        - container(opcional): contenedor del cliente
     
 + Request (application/json)
 
@@ -1277,7 +1279,10 @@ Descripción de campos JSON (Request), campos relevantes:
                         "upc": "",
                         "category": "",
                         "procut_name": "",
-                        "product_price": ""
+                        "product_price": "",
+                        "internal_code": "",
+                        "container": "123",
+                        "internal_code": "2343re"
                     },
                     {
                         "shop_id": "2",
@@ -1293,7 +1298,9 @@ Descripción de campos JSON (Request), campos relevantes:
                         "upc": "",
                         "category": "",
                         "procut_name": "",
-                        "product_price": ""
+                        "product_price": "",
+                        "container": "",
+                        "internal_code": ""
                     },
                     {
                         "shop_id": "3",
@@ -1304,7 +1311,9 @@ Descripción de campos JSON (Request), campos relevantes:
                         "contacto": "Wilmer Alzate",
                         "telefono": "",
                         "email": "sergeaguilera@example.com",
-                        "is_roundtrip": "false"
+                        "is_roundtrip": "false",
+                        "container": "",
+                        "internal_code": "67845df"
                     },
                     {
                         "shop_id": "3",
@@ -1320,7 +1329,9 @@ Descripción de campos JSON (Request), campos relevantes:
                         "upc": "",
                         "category": "",
                         "procut_name": "",
-                        "product_price": ""
+                        "product_price": "",
+                        "container": "",
+                        "internal_code": ""
                     },
                     {
                         "shop_id": "1",
@@ -1331,7 +1342,9 @@ Descripción de campos JSON (Request), campos relevantes:
                         "contacto": "Al Olatte",
                         "telefono": "",
                         "email": "alolatte@ejemplo.com",
-                        "is_roundtrip": "false"
+                        "is_roundtrip": "false",
+                        "container": "",
+                        "internal_code": ""
                     }
                 ]
             }
