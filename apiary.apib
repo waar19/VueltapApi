@@ -1230,26 +1230,26 @@ Descripción de campos JSON (Request), campos relevantes:
     - token: email del usuario que realiza la petición
     
 - Body:
-    - city(requerido): ciudad en la que se realizaran los servicios, si no se recibe se toma como bogotá.
-    - insurance_amount(requerido): valor por el cual quiere asegurar los pedidos, si no se recibe el valor se toma como cero(0).
-    - store_code(opcional) - numérico (nit o cédula de usuario): código interno de la tienda. Vueltap informará si es necesario que este campo se envie, no aplica para todos los usuarios.
+    - city(requerido)(string): ciudad en la que se realizaran los servicios, valor vacío por defecto Bogota.
+    - insurance_amount(requerido)(number): valor por el cual quiere asegurar los pedidos, valor vacío por defecto 0.
+    - store_code(opcional)(string): - (nit o cédula de usuario): código interno de la tienda. Vueltap informará si es necesario que este campo se envie, no aplica para todos los usuarios.
     - addresses(requerido): arreglo con las direcciones de entrega.
-        - shop_id(requerido): identificador unico de la bodega donde se debe recoger el pedido.
-        - direccion(requerido): dirección de entrega del pedido.
-        - peso(requerido): peso del producto a entregar.
-        - instrucciones(requerido): datos adicionales para la entrega (Apto No, Edificio, ect).
-        - orden_numero(requerido): descripcion de numero de factura u orden.
-        - contacto(requerido): nombre de la persona quien posiblemente recibirá el pedido.
-        - telefono(requerido): número de telefono de quien posiblemente recibirá el pedido.
-        - email(requerido): correo electrónico de quien posiblemente recibirá el pedido.
-        - is_roundtrip(requerido): describe si el servicio es ida y regreso, si no se recibe valor se toma como false.
-        - sku(requerido): codigo interno del producto a enviar
-        - upc(requerido): codigo internacional del producto a enviar
-        - category(requerido): categoría del producto a enviar
-        - product_name(requerido): nombre del producto a enviar
-        - product_price(requerido): precio del producto a enviar
-        - internal_code(requerido): codigo interno del cliente
-        - container(requerido): contenedor del cliente
+        - shop_id(requerido)(string): identificador unico de la bodega donde se debe recoger el pedido.
+        - direccion(requerido)(string): dirección de entrega del pedido.
+        - peso(requerido)(number): peso del producto a entregar, valor vacío por defecto 0.
+        - instrucciones(requerido)(string): datos adicionales para la entrega (Apto No, Edificio, ect).
+        - orden_numero(requerido)(string): descripcion de numero de factura u orden, se puede enviár vacío.
+        - contacto(requerido)(string): nombre de la persona quien posiblemente recibirá el pedido, se puede enviár vacío.
+        - telefono(requerido)(string): número de telefono de quien posiblemente recibirá el pedido, se puede enviár vacío.
+        - email(requerido)(string): correo electrónico de quien posiblemente recibirá el pedido, se puede enviár vacío.
+        - is_roundtrip(requerido): describe si el servicio es ida y regreso, valor por defecto false.
+        - sku(requerido)(string): codigo interno del producto a enviar, se puede enviar vacío.
+        - upc(requerido)(string): codigo internacional del producto a enviar, se puede enviar vacío.
+        - category(requerido)(string): categoría del producto a enviar, se puede enviar vacío.
+        - product_name(requerido)(string): nombre del producto a enviar, se puede enviar vacío.
+        - product_price(requerido)(number): precio del producto a enviar, se puede enviar vacío.
+        - internal_code(requerido)(string): codigo interno del cliente, se puede enviar vacío.
+        - container(requerido)(string): contenedor del cliente, se puede enviar vacío.
     
 + Request (application/json)
 
