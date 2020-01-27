@@ -1230,26 +1230,26 @@ Descripción de campos JSON (Request), campos relevantes:
     - token: email del usuario que realiza la petición
     
 - Body:
-    - city: ciudad en la que se realizaran los servicios, si no se recibe se toma como bogotá.
-    - insurance_amount: valor por el cual quiere asegurar los pedidos, si no se recibe el valor se toma como cero(0).
+    - city(requerido): ciudad en la que se realizaran los servicios, si no se recibe se toma como bogotá.
+    - insurance_amount(requerido): valor por el cual quiere asegurar los pedidos, si no se recibe el valor se toma como cero(0).
     - store_code(opcional) - numérico (nit o cédula de usuario): código interno de la tienda. Vueltap informará si es necesario que este campo se envie, no aplica para todos los usuarios.
-    - addresses: arreglo con las direcciones de entrega.
-        - shop_id: identificador unico de la bodega donde se debe recoger el pedido.
-        - direccion: dirección de entrega del pedido.
-        - peso: peso del producto a entregar.
-        - instrucciones: datos adicionales para la entrega (Apto No, Edificio, ect).
-        - orden_numero: descripcion de numero de factura u orden.
-        - contacto: nombre de la persona quien posiblemente recibirá el pedido.
-        - telefono: número de telefono de quien posiblemente recibirá el pedido.
-        - email: correo electrónico de quien posiblemente recibirá el pedido.
-        - is_roundtrip: describe si el servicio es ida y regreso, si no se recibe valor se toma como false.
-        - sku(opcional): codigo interno del producto a enviar
-        - upc(opcional): codigo internacional del producto a enviar
-        - category(opcional): categoría del producto a enviar
-        - product_name(opcional): nombre del producto a enviar
-        - product_price(opcional): precio del producto a enviar
-        - internal_code(opcional): codigo interno del cliente
-        - container(opcional): contenedor del cliente
+    - addresses(requerido): arreglo con las direcciones de entrega.
+        - shop_id(requerido): identificador unico de la bodega donde se debe recoger el pedido.
+        - direccion(requerido): dirección de entrega del pedido.
+        - peso(requerido): peso del producto a entregar.
+        - instrucciones(requerido): datos adicionales para la entrega (Apto No, Edificio, ect).
+        - orden_numero(requerido): descripcion de numero de factura u orden.
+        - contacto(requerido): nombre de la persona quien posiblemente recibirá el pedido.
+        - telefono(requerido): número de telefono de quien posiblemente recibirá el pedido.
+        - email(requerido): correo electrónico de quien posiblemente recibirá el pedido.
+        - is_roundtrip(requerido): describe si el servicio es ida y regreso, si no se recibe valor se toma como false.
+        - sku(requerido): codigo interno del producto a enviar
+        - upc(requerido): codigo internacional del producto a enviar
+        - category(requerido): categoría del producto a enviar
+        - product_name(requerido): nombre del producto a enviar
+        - product_price(requerido): precio del producto a enviar
+        - internal_code(requerido): codigo interno del cliente
+        - container(requerido): contenedor del cliente
     
 + Request (application/json)
 
