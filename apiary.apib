@@ -1215,6 +1215,115 @@ Objeto JSON con estado de la petición y arreglo de estados
                 ]
             }
             
+            
+## Get Delivery Trazability By Client Order Number [/Delivery/Get/Tace/1026846]  
+
+### Delivery/Get/Tace/:order_number [GET]
+Obtener trazabilidad de estados por número de orden de cliente
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - Autorizathion: Autorización basica para los llamadas http.
+    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+
+
+- Params:
+    - order_number: número de orden del cliente
+
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+Objeto JSON con estado de la petición y arreglo de estados
+    - status: estado de la respuesta
+    - message: mensaje de la respuesta
+    - response: arreglo que contiene la trazabilidad
+        - _id: identificador unico del registro del estado en la base de datos
+        - delivery: identificador del servicio al que pertenece el estado
+        - user: identificador de usuario que creo el servicio
+        - status: estado del servicio, pueden ser:
+            - schedule: el servicio fue programado
+            - available: disponbile para ser aceptado por un mensajero
+            - cancelled: cancelación del servicio
+            - accepted: el mensajero lo acepto en la aplicación móvil
+            - collected: el mensajero ya recolecto el producto a entregar
+            - not-collected: servicio no pudo ser recogido
+            - in-transit: en transito hacia direcciones de entrega
+            - deliver_attempt: el paquete no puede ser entrega y se debe realizar un nuevo intento de entrega
+            - returning: cuando el servicio representa ida y vuelta, es el estado que indica que el mensajero está retornando al punto de partida, sitio de recolección
+            - returned: cuando el servicio es devuelto al punto de recoleccion.
+            - delivered: entregado
+        - date: fecha y hora (ISO) en la que se registra el movimiento, fecha en que se registro el estado
+
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            token: wilmeralzateroman@gmail.com
+            
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": true,
+                "message": "Trace find",
+                "response": [
+                    {
+                        "_id": "5c9ba7595eae816c1bb26769",
+                        "delivery": "5c9ba7595eae816c1bb26768",
+                        "trace_type": "Delivery",
+                        "status": "available",
+                        "user": "5a8c8434ef9ddf018d0d6094",
+                        "date": "2019-03-27T11:39:53.113Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "5c9ba7b874d99b6c477a9126",
+                        "status": "accepted",
+                        "delivery": "5c9ba7595eae816c1bb26768",
+                        "trace_type": "DeliveryItem",
+                        "messenger": "5b3f93af945bf426247851f6",
+                        "user_type": "Messenger",
+                        "date": "2019-03-27T11:41:28.718Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "5c9ba7eb2463386c53bd60ca",
+                        "status": "collected",
+                        "delivery": "5c9ba7595eae816c1bb26768",
+                        "trace_type": "DeliveryItem",
+                        "user_type": "Messenger",
+                        "date": "2019-03-27T11:42:19.345Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "5c9ba7ee74d99b6c477a912e",
+                        "status": "in-transit",
+                        "delivery": "5c9ba7595eae816c1bb26768",
+                        "trace_type": "DeliveryItem",
+                        "messenger": "5b3f93af945bf426247851f6",
+                        "user_type": "Messenger",
+                        "date": "2019-03-27T11:42:22.796Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "5c9ba8272463386c53bd60ce",
+                        "status": "delivered",
+                        "delivery": "5c9ba7595eae816c1bb26768",
+                        "trace_type": "DeliveryItem",
+                        "user_type": "Messenger",
+                        "date": "2019-03-27T11:43:19.050Z",
+                        "__v": 0
+                    }
+                ]
+            }            
+
+            
 ## Delivery Create Multiple Seller [/Delivery/CreateDeliveriesByJson]  
 
 ### CreateDeliveriesByJson [POST]
