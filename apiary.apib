@@ -327,6 +327,7 @@ Descripción de campos JSON (Request), campos relevantes:
     - raise_cash: (opcional) el mensajero debe recaudar dinero? envíar en true o false según indicaciones de vueltap,
     - how_much_raise: cuanto dinero debe recaudar el mensajero, enviar en 0 si el parámetro anterior es false, si el campo anterior en true, este campo es obligatorio.
     - order_number: (opcional) número de orden asociada al pedido origen (número de guía,orden o pedido) de los clientes que se integran. 
+    - shop_id: (opcional) número de bodega asociada al pedido si es necesario
     - locations: Arreglo de direcciones, que comprende el punto de recogida (único) y los puntos de entrega (múltiples)
         - address: cadena de la dirección, previamente verificada por el servicio de GetPriceFromLocations
         - details: (opcional) información adicional relevante que ayude el mensajero a realizar la entrega.
@@ -495,7 +496,8 @@ Descripción de campos JSON (Response), campos relevantes:
                "how_much_cash": 0,
                "raise_cash": false,
                "how_much_raise": 0,
-               "order_number": "123456"
+               "order_number": "123456",
+               "shop_id": "1"
             }
 
 + Response 200 (application/json)
