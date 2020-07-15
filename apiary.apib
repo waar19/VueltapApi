@@ -874,3 +874,46 @@ Descripción de campos JSON (Response), campos relevantes:
                     "driver": "5d76dda212414a0304448704"
                 }
             }
+            
+## Get Pdf info [/Delivery/Get/PdfInfo/receiver/10050902]
+
+### /Delivery/Get/PdfInfo/:receiver/:service_code [GET]
+
+Método de obtención de rotulo (pdf)
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario que realiza la peticion, por defecto "user".
+    - private-key: key de autorización requerida en las peticiones.
+    - token: email del usuario que realiza la petición.
+
+- Params:
+    - receiver(requerido)(string): Identificador utilizado para especificar si se quiere obtener dentro del label quien recibió la entrega(en caso de estar en estado entregada).
+        - los valores permitidos son: "receiver" o "no_receiver"
+    - service_code(requerido)(number): Código del servicio asignado a la hora de realizar la creación del mismo.
+    
+Descripción de campos JSON (Response), campos relevantes:
+
+- Body:
+    - status: estado de la petición correcta = true en caso de error = false.
+    - message: mensaje de confirmacion en caso de que el status sea true.
+    - response: url de descarga del pdf.
+        
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            private-key: D077FYE-4J44PF0-KY3TWE6-B9BPJ7V
+            token: wilmeralzateroman@gmail.com
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "status": true,
+                "message": "Pdf generado",
+                "response": "https://files.vueltapp.com/service-10050902.pdf"
+            }
