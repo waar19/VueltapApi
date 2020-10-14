@@ -718,7 +718,166 @@ Descripción de campos JSON (Request), campos relevantes:
                 }
             }
 
+## Create Delivery Order V2 [/Delivery/CreateDeliveriesByJson]
 
+### CreateDeliveriesByJson [POST]
+
+Método de creación de pedidos pertenecientes a multiples bodegas (MULTI BODEGA)
+
+Descripción de campos JSON (Request), campos relevantes:
+
+- Header:
+    - type: tipo de usuario
+    - Authorization: parámetros de usuario y clave en formato Basic
+    - token: email del usuario que realiza la petición
+    
+- Body:
+    - city(requerido)(string): ciudad en la que se realizaran los servicios, valor vacío por defecto Bogota.
+    - insurance_amount(requerido)(number): valor por el cual quiere asegurar los pedidos, valor vacío por defecto 0.
+    - store_code(opcional)(string): - (nit o cédula de usuario): código interno de la tienda. Vueltap informará si es necesario que este campo se envie, no aplica para todos los usuarios.
+    - addresses(requerido): arreglo con las direcciones de entrega.
+        - shop_id(requerido)(string): identificador unico de la bodega donde se debe recoger el pedido.
+        - direccion(requerido)(string): dirección de entrega del pedido.
+        - peso(requerido)(number): peso del producto a entregar, valor vacío por defecto 0.
+        - instrucciones(requerido)(string): datos adicionales para la entrega (Apto No, Edificio, ect).
+        - orden_numero(opcional)(string): descripcion de numero de factura u orden.
+        - contacto(opcional)(string): nombre de la persona quien posiblemente recibirá el pedido.
+        - telefono(opcional)(string): número de telefono de quien posiblemente recibirá el pedido.
+        - email(opcional)(string): correo electrónico de quien posiblemente recibirá el pedido.
+        - is_roundtrip(requerido): describe si el servicio es ida y regreso, valor por defecto false.
+        - internal_code(opcional)(string): codigo interno del cliente.
+        - container(opcional)(string): contenedor del cliente.
+        - generate_b64(opcional): si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf.
+        - label_type(opcional): tipo de label para la guía creada, 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox).
+        - products(requerido)(Array): Arreglo de arreglos que contiene la cantidad de paquetes en la entrega y cada arreglo interno podrá contener la cantidad de productos(objetos) deseada.
+            - sku(opcional)(string): codigo interno del producto a enviar.
+            - upc(opcional)(string): codigo internacional del producto a enviar.
+            - category(opcional)(string): categoría del producto a enviar.
+            - product_name(opcional)(string): nombre del producto a enviar.
+            - product_price(opcional)(number): precio del producto a enviar.
+
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOlMwYzBjVFk1V1hCbVZRPT0=
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+
+            {
+                "city":"",
+                "insurance_amount":"0",
+                "addresses":[
+                    {
+                        "shop_id":"W001",
+                        "direccion":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL - CONJUNTO PINARES DE ALSACIA SALIDA:S556 FASE: 4000007754",
+                        "peso":"1",
+                        "instrucciones":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL - CONJUNTO PINARES DE ALSACIA SALIDA:S556 FASE: 4000007754",
+                        "details":"",
+                        "orden_numero":"15060000006822",
+                        "internal_code": "",
+                        "container": "",
+                        "contacto":"Addresses 1",
+                        "telefono":"+573138893768",
+                        "email":"LUMYVELOSAV@MISENA.EDU.CO",
+                        "is_roundtrip":"false",
+                        "generate_b64":true,
+                        "label_type": 1,
+                        "products": [[{
+                                "sku":"1111",
+                                "upc":"2222",
+                                "category":"",
+                                "product_name":"TENNIS",
+                                "product_price":"34610"
+                            },{
+                                "sku":"3212",
+                                "upc":"3452",
+                                "category":"",
+                                "product_name":"MEDIAS",
+                                "product_price":"5000"
+                            }],
+                            [{
+                                "sku":"6785",
+                                "upc":"4123",
+                                "category":"",
+                                "product_name":"PRENDAS DE VESTIR",
+                                "product_price":"34610"
+                            }]
+                        ]        
+                    },
+                    {
+                        "shop_id":"W001",
+                        "direccion":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL - CONJUNTO PINARES DE ALSACIA SALIDA:S556 FASE: 4000007754",
+                        "peso":"1",
+                        "instrucciones":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL - CONJUNTO PINARES DE ALSACIA SALIDA:S556 FASE: 4000007754",
+                        "details":"",
+                        "orden_numero":"15060000006822",
+                        "internal_code": "",
+                        "container": "",
+                        "contacto":"Addresses 2",
+                        "telefono":"+573138893768",
+                        "email":"LUMYVELOSAV@MISENA.EDU.CO",
+                        "is_roundtrip":"false",
+                        "generate_b64":true,
+                        "label_type": 2,
+                        "products": [[{
+                                "sku":"1234",
+                                "upc":"5678",
+                                "category":"",
+                                "product_name":"CAMISETA",
+                                "product_price":"34610"
+                            },{
+                                "sku":"4567",
+                                "upc":"8901",
+                                "category":"",
+                                "product_name":"PANTALON",
+                                "product_price":"5000"
+                            }]
+                        ]        
+                    }
+                ]
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": true,
+                "count_not_create": 0,
+                "services_not_create": [],
+                "count_create": 3,
+                "services_created": [
+                    10703845,
+                    10703846,
+                    10703847
+                ],
+                "services_guides": [
+                    {
+                        "pdfB64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuNC4yOSAoVWJ1bnR1KSBTZXJ2ZXIgYXQgZmlsZXMudnVlbHRhcHAuY29tIFBvcnQgNDQzPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=",
+                        "code": 10703845,
+                        "order_number": "15060000006822",
+                        "url_guide": "https://vueltappublic.s3.amazonaws.com/guides/10703845.pdf",
+                        "alt_url_guide": "https://files.vueltapp.com/service-10703845.pdf"
+                    },
+                    {
+                        "pdfB64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuNC4yOSAoVWJ1bnR1KSBTZXJ2ZXIgYXQgZmlsZXMudnVlbHRhcHAuY29tIFBvcnQgNDQzPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=",
+                        "code": 10703846,
+                        "order_number": "15060000006822",
+                        "url_guide": "https://vueltappublic.s3.amazonaws.com/guides/10703846.pdf",
+                        "alt_url_guide": "https://files.vueltapp.com/service-10703846.pdf"
+                    },
+                    {
+                        "pdfB64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuNC4yOSAoVWJ1bnR1KSBTZXJ2ZXIgYXQgZmlsZXMudnVlbHRhcHAuY29tIFBvcnQgNDQzPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=",
+                        "code": 10703847,
+                        "order_number": "15060000006822",
+                        "url_guide": "https://vueltappublic.s3.amazonaws.com/guides/10703847.pdf",
+                        "alt_url_guide": "https://files.vueltapp.com/service-10703847.pdf"
+                    }
+                ]
+            }
 
 ## Cancel DeliveryItem By Code [/DeliveryItem/Cancel]
 
