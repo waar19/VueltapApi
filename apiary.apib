@@ -316,8 +316,8 @@ Arreglo de estados
                     "date":"2018-01-11T21:41:00.555Z"
                 }
             ]
-            
-            
+
+
 ## Get Trazability By Service Code [/DeliveryTraceByCode/1026846]  
 
 ### DeliveryTraceByCode/:service_code [GET]
@@ -534,10 +534,9 @@ Objeto JSON con estado de la petición y arreglo de estados
             }
             
 
+## Get traceability service by order number, service code or internal code [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10239266]
 
-## Get traceability service by (order number, service code or internal code) [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10239266]
-
-### SearchTraceability [GET]
+### SearchTraceability/:user/:code [GET]
 
 
 Metodo de obtención de la trazabilidad de una entrega filtrada por numero de orden del cliente, código interno del cliente o guía Vueltap.
