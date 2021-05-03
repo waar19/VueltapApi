@@ -1,14 +1,14 @@
 FORMAT: 1A
 HOST: https://apiv2.vueltapp.com/api_1.0/
-# Vueltap REST API
+# Logysto REST API
 
-Documentacion oficial del API RESTFul aplicación Vueltap.
+Documentacion oficial del API RESTFul aplicación LOGYSTO.
 
 ## Login User Method [/User/Login]
 
 ### Login [PUT]
 
-Logueo de usuarios de Vueltap, verificacion de usuario y contraseña.
+Logueo de usuarios de LOGYSTO, verificacion de usuario y contraseña.
 
 Descripción de campos JSON (Request), campos relevantes:
 
@@ -93,7 +93,7 @@ Descripción de campos JSON (Request), campos relevantes:
     - user_email: Correo de usuario que realiza la petición.
     
 - Body:
-    - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de vueltap, si se reciben parametros vacios, se reemplazaran con esta información, si no se quiere actualizar un valor no se envía en el item del arreglo seller.
+    - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de LOGYSTO, si se reciben parametros vacios, se reemplazaran con esta información, si no se quiere actualizar un valor no se envía en el item del arreglo seller.
         - shop_id: (Obligatorio) identificador único del establecimiento (comercio, seller)
         - shop: (Obligatorio) nombre único del establecimiento (comercio, seller)
         - contact_name: nombre de la persona contacto del establecimiento (comercio, seller)
@@ -114,7 +114,7 @@ Descripción de campos JSON (Response), campos relevantes:
         - count: cantidad de seller almacenados y/o actualizados
         - shop_saved: Arreglo con los sellers almacenados y/o actualizados
             - shop: equivalente al campo shop enviado en la petición (único)
-            - warehouse_id: identificador único del seller almacenado y/o actualizado al lado de vueltap
+            - warehouse_id: identificador único del seller almacenado y/o actualizado al lado de LOGYSTO
     - not_saved: Arreglo que contiene la especificación de los shop (sellers) que no se pudieron almacenar
         - count: cantidad de seller no almacenados y/o no actualizados
         - reason: mensaje que contiene la descripción de la razón del error.
