@@ -4,7 +4,7 @@ HOST: https://apiv2.vueltapp.com/api_1.0/
 
 Documentacion oficial del API RESTFul aplicación LOGYSTO.
 
-## Login User Method [/User/Login]
+## User Login [/User/Login]
 
 ### Login [PUT]
 
@@ -77,7 +77,7 @@ Descripción de campos JSON (Response), campos relevantes:
 
 
 
-## Create/Update WareHouses Method [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
+## Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
 ### UpdateWarehouses/:user_email [PUT]
 Método de actualización/creación de bodegas
@@ -387,7 +387,7 @@ Descripción de campos JSON (Request), campos relevantes:
                 ]
             }
 
-## Cancel DeliveryItem By Code [/DeliveryItem/Cancel]
+## Cancel Delivery Order [/DeliveryItem/Cancel]
 
 ### Cancel Delivery Item [PUT]
 
@@ -630,6 +630,7 @@ Descripción de campos JSON (Response), campos relevantes:
                     "order_number": null,
                     "date": "2020-01-29T19:55:02.319Z",
                     "status": "delivered",
+                    "raise_cash": 0,
                     "trace": [
                         {
                             "_id": "5e31e31624fb8d2c475c6920",
