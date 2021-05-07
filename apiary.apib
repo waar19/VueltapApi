@@ -4,7 +4,7 @@ HOST: https://apiv2.vueltapp.com/api_1.0/
 
 Documentacion oficial del API RESTFul aplicación LOGYSTO.
 
-## User Login [/User/Login]
+## Autenticación - User Login [/User/Login]
 
 ### Login [PUT]
 
@@ -77,7 +77,7 @@ Descripción de campos JSON (Response), campos relevantes:
 
 
 
-## Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
+## Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
 ### UpdateWarehouses/:user_email [PUT]
 Método de actualización/creación de bodegas
@@ -226,7 +226,7 @@ Descripción de campos JSON (Response), campos relevantes:
  
 
 
-## Create Delivery Order [/Delivery/CreateDeliveriesByJson]
+## Crear servicio - Create Delivery Order [/Delivery/CreateDeliveriesByJson]
 
 ### CreateDeliveriesByJson [POST]
 
@@ -387,7 +387,7 @@ Descripción de campos JSON (Request), campos relevantes:
                 ]
             }
 
-## Cancel Delivery Order [/DeliveryItem/Cancel]
+## Cancelar Servicio - Cancel Delivery Order [/DeliveryItem/Cancel]
 
 ### Cancel Delivery Item [PUT]
 
@@ -543,7 +543,7 @@ Descripción de campos JSON (Response), campos relevantes:
                 }
             }
             
-## Get Pdf info [/Delivery/Get/PdfInfo/receiver/10050902]
+## Consultar etiqueta PDF - Get Pdf info [/Delivery/Get/PdfInfo/receiver/10050902]
 
 ### /Delivery/Get/PdfInfo/:receiver/:service_code [GET]
 
@@ -586,7 +586,7 @@ Descripción de campos JSON (Response), campos relevantes:
                 "response": "https://files.vueltapp.com/service-10050902.pdf"
             }
         
-## Get trace with evidence [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10050902]
+## Consultar trazabilidad con evidencia - Get trace with evidence [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10050902]
 
 ### /Delivery/SearchTraceability/:email/:service_code [GET]
 
