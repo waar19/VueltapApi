@@ -253,10 +253,14 @@ Descripción de campos JSON (Request), campos relevantes:
         - contacto(opcional)(string): Nombre de la persona quien posiblemente recibirá el pedido.
         - telefono(opcional)(string): Número de teléfono de quien posiblemente recibirá el pedido.
         - email(opcional)(string): Correo electrónico de quien posiblemente recibirá el pedido.
-        - is_roundtrip(requerido): Describe si el servicio es ida y regreso. Valor por defecto false.
+        - is_roundtrip(requerido)(boolean): Describe si el servicio es ida y regreso. Valor por defecto false.
         - internal_code(opcional)(string): Código interno del cliente.
         - ciudad: (opcional)(string) si se envia por fuera de este objeto como city no es necesario establecer el parametro dentro del objeto address
         - city_code(requerido)(number): Código de la ciudad en la que se realizará el servicios. En Colombia código DANE de 5 dígitos.
+        - service_promise(requerido)(string): Valores: express, sameday, nextday
+        - heigth(requerido)(number): Altura del paquete en centimetros
+        - length(requerido)(number): Largo del paquete en centimetros
+        - width(requerido)(number): Ancho del paquete en centimetros
         - container(opcional)(string): Contenedor del cliente.
         - generate_b64(opcional): Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf.
         - label_type(opcional): Tipo de label para la guía creada. Valores: 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox).
@@ -291,6 +295,10 @@ Descripción de campos JSON (Request), campos relevantes:
                         "orden_numero":"15060000006822",
                         "internal_code": "",
                         "container": "",
+                        "service_promise": "sameday",
+                        "heigth": "50",
+                        "length": "50",
+                        "width": "50",
                         "contacto":"Addresses 1",
                         "telefono":"+573138893768",
                         "email":"LUMYVELOSAV@MISENA.EDU.CO",
@@ -328,6 +336,10 @@ Descripción de campos JSON (Request), campos relevantes:
                         "details":"",
                         "orden_numero":"15060000006822",
                         "internal_code": "",
+                        "service_promise": "express",
+                        "heigth": "30",
+                        "length": "30",
+                        "width": "30",
                         "container": "",
                         "contacto":"Addresses 2",
                         "telefono":"+573138893768",
