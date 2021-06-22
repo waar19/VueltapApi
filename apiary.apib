@@ -261,7 +261,7 @@ Descripción de campos JSON (Request), campos relevantes:
         - direccion(requerido)(string): Dirección de entrega del pedido.
         - peso(requerido)(number): Peso del producto a entregar. Valor vacío por defecto 0.
         - instrucciones(requerido)(string): Datos adicionales para la entrega (Apto No, Edificio, ect).
-        - orden_numero(opcional)(string): Descripción de número de factura u orden. Para algunos usuarios este campo está configurado como llave única que en caso de enviar un servicio con un número que ya tiene un servicio creado lo rechazará
+        - orden_numero(opcional)(string): Descripción de número de factura u orden. Para algunos usuarios este campo está configurado como llave única que en caso de enviar un valor existente se rechazará
         - contacto(opcional)(string): Nombre de la persona quien posiblemente recibirá el pedido.
         - telefono(opcional)(string): Número de teléfono de quien posiblemente recibirá el pedido.
         - email(opcional)(string): Correo electrónico de quien posiblemente recibirá el pedido.
