@@ -262,8 +262,8 @@ Descripción de campos JSON (Request), campos relevantes:
         - peso(requerido)(number): Peso del producto a entregar. Valor vacío por defecto 0.
         - instrucciones(requerido)(string): Datos adicionales para la entrega (Apto No, Edificio, ect).
         - orden_numero(opcional)(string): Descripción de número de factura u orden. Para algunos usuarios este campo está configurado como llave única que en caso de enviar un valor existente se rechazará
-        - contacto(opcional)(string): Nombre de la persona quien posiblemente recibirá el pedido.
-        - telefono(opcional)(string): Número de teléfono de quien posiblemente recibirá el pedido.
+        - contacto(requerido)(string): Nombre de la persona quien posiblemente recibirá el pedido.
+        - telefono(requerido)(string): Número de teléfono de quien posiblemente recibirá el pedido.
         - email(opcional)(string): Correo electrónico de quien posiblemente recibirá el pedido.
         - is_roundtrip(requerido)(boolean): Describe si el servicio es ida y regreso. Valor por defecto false.
         - internal_code(opcional)(string): Código interno del cliente.
