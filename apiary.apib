@@ -4,7 +4,7 @@ HOST: https://apiv2.vueltapp.com/api_1.0/
 
 Documentacion oficial del API RESTFul aplicación LOGYSTO.
 
-## Autenticación - User Login [/User/Login]
+## Autenticación - User Login
 
 Existen dos métodos de autenticación disponibles: mediante una llave de API (API key) generada en la cuenta del usuario (Recomendado) o mediante autenticación básica de usuario y contraseña (No recomendado).
 
@@ -18,76 +18,14 @@ Para realizar las peticiones a los servicios disponibles en el API con este mét
     - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
 
 
-### Autenticación con usuario y contraseña [PUT]
+#### Autenticación con usuario y contraseña
 
-Autenticación de usuarios de LOGYSTO con verificacion de usuario y contraseña. Retorna un token de sesión que se envía en los llamados a otros servicios
+Autenticación de usuarios de LOGYSTO con verificacion de usuario y contraseña. Para esto se utiliza el encabezado de autenticación básica.
 
 Descripción de campos JSON (Request), campos relevantes:
 
-- Body:
-    - email: correo de usuario
-    - password: contraseña de usuario base64 de la contraseña
-
-Descripción de campos JSON (Response), campos relevantes:
-
-- Body:
-    - status: estado de la petición correcta = true en caso de error = false
-    - message: mensaje de respuesta
-    - response: Objeto JSON de Usuario
-        - _id : Id único del usuario
-        - email: Email de usuario
-        - name: Nombre del usuario
-        - lastname: Apellidos del usuario
-        - session: Objeto JSON de sesión de usuario:
-            - exp_date: fecha de expiración del token
-            - token: token (email) de usuario generado para la sesión, el cual se deberá usará en los headers más adelante.
-        - type: Tipo de servicio que generará el usuario si es mensajería es (messaging)
-
-+ Request (application/json)
-
-    + Body
-    
-            {
-              "email": "wilmeralzateroman@gmail.com",
-              "password": "d2FyMjY2MDQ4OQ=="
-            }
-        
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-              "status": true,
-              "response": {
-                "_id": "58703a04e8fa120cf0987c17",
-                "email": "wilmeralzateroman@gmail.com",
-                "email_confirmation": true,
-                "active": true,
-                "password": "$2a$10$PzZrli3mfND64ZvLho4GZehHRLQAsHH2QIjUBcwiDVbbbLhfrhZrK",
-                "name": "Wilmer",
-                "lastname": "Alzate Roman",
-                "mobilephone": 3204204615,
-                "__v": 0,
-                "device": [],
-                "stats": {
-                  "created_services": 178
-                },
-                "session": {
-                  "exp_date": "2017-05-01T05:00:00.000Z",
-                  "token": "wilmeralzateroman@gmail.com"
-                },
-                "corporate_payment": true,
-                "favorites": [],
-                "password_recover": {
-                  "status": true,
-                  "token": "$2a$10$ahwhHkWddBNvBWHMxmJ9HepQVtze42MywEh3pm0zueJmSP4U5akVK"
-                },
-                "type": "messaging"
-              },
-              "message": "Autenticado correctamente"
-            }
-
-
+- Header:
+    - Authorization: String base 64 del usuario y contraseña concatenados con dos puntos: "usuario:contraseña". Formato: Basic XXXXXXXXXXXXXXXXXXXXXXXX
 
 ## Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
