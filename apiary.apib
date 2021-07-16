@@ -212,9 +212,10 @@ Descripción de campos JSON (Request), campos relevantes:
         - length(requerido)(number): Largo del paquete en centimetros
         - width(requerido)(number): Ancho del paquete en centimetros
         - container(opcional)(string): Contenedor del cliente.
+        - raise_cash(opcional)(number): Valor del pago en efectivo contra entrega. Se requiere tener el servicio activo con Logysto. Ejemplo: 10000
         - generate_b64(opcional): Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf.
         - label_type(opcional): Tipo de label para la guía creada. Valores: 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox).
-        - products(requerido)(Array): Arreglo de objetos que contiene la cantidad de paquetes en la entrega y cada arreglo interno podrá contener la cantidad de productos(objetos) deseada.
+        - products(requeri do)(Array): Arreglo de objetos que contiene la cantidad de paquetes en la entrega y cada arreglo interno podrá contener la cantidad de productos(objetos) deseada.
             - sku(opcional)(string): Código interno del producto a enviar.
             - upc(opcional)(string): Código internacional del producto a enviar.
             - category(opcional)(string): Categoría del producto a enviar.
