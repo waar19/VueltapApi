@@ -4,6 +4,20 @@ HOST: https://apiv2.vueltapp.com/api_1.0/
 
 Documentacion oficial del API RESTFul aplicación LOGYSTO.
 
+## Ambientes / Environments
+
+LOGYSTO cuenta con un ambiente de pruebas donde se pueden realizar test controlados de las distintas funcionalidades, y con el ambiente productivo donde la información corresponde con la operación real. Estos ambientes son independientes y no comparten información, por lo que las cuentas, ordenes y métodos de autenticación son independientes.
+
+#### Ambiente de pruebas / Test
+
+- Acceso web de clientes: https://app2.vueltapp.com/
+- URL API: https://apiv2.vueltapp.com/api_1.0/
+
+#### Ambiente de producción / Prod
+
+- Acceso web de clientes: https://app.vueltap.com/
+- URL API: https://api.vueltap.com:8080/api_1.0/
+
 ## Autenticación - User Login
 
 Existen dos métodos de autenticación disponibles: mediante una llave de API (API key) generada en la cuenta del usuario (Recomendado) o mediante autenticación básica de usuario y contraseña (No recomendado).
@@ -190,8 +204,8 @@ Descripción de campos JSON (Request), campos relevantes:
     - token: Email del usuario que realiza la petición
     
 - Body:
-    - city(string): Nombre de la ciudad para la busqueda de direccion
-    - city_code(requerido)(string): Código de la ciudad en la que se realizaran los servicios. Requerido si no se incluye en cada uno de las direcciones (addresses). En Colombia código DANE de 5 dígitos. 
+    - city_code(requerido)(string): Código de la ciudad de destino. Requerido si no se incluye en cada uno de las direcciones (addresses). En Colombia código DANE de 5 dígitos. 
+    - city(string): Nombre de la ciudad de destino para la busqueda de direccion. (Obsoleto)
     - insurance_amount(requerido)(number): Valor por el cual quiere asegurar los pedidos. Valor vacío por defecto 0.
     - store_code(opcional)(string): - (nit o cédula de usuario): Código interno de la tienda. Logysto informará si es necesario que este campo se envie. No aplica para todos los usuarios.
     - addresses(requerido): Arreglo (array) con las direcciones de entrega.
@@ -206,7 +220,7 @@ Descripción de campos JSON (Request), campos relevantes:
         - is_roundtrip(requerido)(boolean): Describe si el servicio es ida y regreso. Valor por defecto false.
         - internal_code(opcional)(string): Código interno del cliente.
         - ciudad: (opcional)(string) si se envia por fuera de este objeto como city no es necesario establecer el parametro dentro del objeto address
-        - city_code(requerido)(string): Código de la ciudad en la que se realizará el servicios. En Colombia código DANE de 5 dígitos.
+        - city_code(requerido)(string): Código de la ciudad de destino. En Colombia código DANE de 5 dígitos.
         - service_promise(requerido)(string): Promesa de servicio del paquete. Valores: express, sameday, nextday
         - height(requerido)(number): Altura del paquete en centimetros
         - length(requerido)(number): Largo del paquete en centimetros
