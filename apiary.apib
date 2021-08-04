@@ -41,7 +41,12 @@ Autenticación de usuarios de LOGYSTO con verificacion de usuario y contraseña.
 Descripción de campos JSON (Request), campos relevantes:
 
 - Header:
-    - Authorization: String base 64 del usuario y contraseña concatenados con dos puntos: "usuario:contraseña". Formato: Basic XXXXXXXXXXXXXXXXXXXXXXXX
+    - Authorization: String base 64 del usuario y contraseña concatenados con dos puntos: base64(usuario:base64(contraseña)). Formato: Basic XXXXXXXXXXXXXXXXXXXXXXXX
+        - Ejemplo
+            - Usuario: Logysto
+            - Contraseña: logysto
+            - Contraseña base64: bG9neXN0bw==
+            - Header: Basic bG9neXN0bzpiRzluZVhOMGJ3PT0= 
 
 ## Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
