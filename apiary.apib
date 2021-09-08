@@ -32,6 +32,8 @@ Para realizar las peticiones a los servicios disponibles en el API con este mét
 
 - Header:
     - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
+    - type: tipo de usuario que realiza la peticion, por defecto "user"
+    - token: email del usuario
 
 
 #### Autenticación con usuario y contraseña
@@ -47,6 +49,8 @@ Descripción de campos JSON (Request), campos relevantes:
             - Contraseña: logysto
             - Contraseña base64: bG9neXN0bw==
             - Header: Basic bG9neXN0bzpiRzluZVhOMGJ3PT0= 
+    - type: tipo de usuario que realiza la peticion, por defecto "user"
+    - token: email del usuario
 
 ## Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
@@ -58,7 +62,7 @@ Descripción de campos JSON (Request), campos relevantes:
 - Header:
     - type: tipo de usuario que realiza la peticion, por defecto "user".
     - Autorizathion: Autorización basica para los llamadas http.
-    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+    - token: email del usuario
 
 - Params:
     - user_email: Correo de usuario que realiza la petición.
@@ -98,7 +102,7 @@ Descripción de campos JSON (Response), campos relevantes:
     + Headers
     
             type: user
-            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
             token: wilmeralzateroman@gmail.com
             
     + Body
@@ -224,7 +228,7 @@ Descripción de campos JSON (Request), campos relevantes:
         - email(opcional)(string): Correo electrónico de quien posiblement froe recibirá el pedido.
         - is_roundtrip(requerido)(boolean): Describe si el servicio es ida y regreso. Valor por defecto false.
         - internal_code(opcional)(string): Código interno del cliente.
-        - city_code(requerido)(string): Código de la ciudad de destino. En Colombia código DANE de 5 dígitos.
+        - city_code(requerido)(string): Código de la ciudad de destino. En Colombia código DANE de 5 dígitos. Ejemplo: Bogotá 11001, Medellín 05001, Cali 76001, Barranquilla 08001. Ver listado completos de códigos DANE: https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf
         - service_promise(requerido)(string): Promesa de servicio del paquete. Valores: express, sameday, nextday
         - height(requerido)(number): Altura del paquete en centimetros
         - length(requerido)(number): Largo del paquete en centimetros
@@ -246,7 +250,7 @@ Descripción de campos JSON (Request), campos relevantes:
     + Headers
     
             type: user
-            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOlMwYzBjVFk1V1hCbVZRPT0=
+            private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
             token: wilmeralzateroman@gmail.com
             
     + Body
@@ -402,7 +406,7 @@ Descripción de campos JSON (Response), campos relevantes:
     + Headers
     
             type: user
-            Authorization: Basic d2lsbWVyYWx6YXRlcm9tYW5AZ21haWwuY29tOmQyRnlNalkyTURRNE9RPT0=
+            private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
             token: wilmeralzateroman@gmail.com
             
     + Body
@@ -602,7 +606,7 @@ Descripción de campos JSON (Response), campos relevantes:
     + Headers
     
             type: user
-            private-key: D077FYE-4J44PF0-KY3TWE6-B9BPJ7V
+            private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
             token: wilmeralzateroman@gmail.com
 
 + Response 200 (application/json)
