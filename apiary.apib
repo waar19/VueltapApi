@@ -3,6 +3,7 @@ HOST: https://qa-api.logysto.co/api_1.0/
 # Logysto REST API
 
 Documentacion oficial del API RESTFul aplicación LOGYSTO.
+![Logysto!](https://logysto.co/img/logysto.png "Logysto")
 
 ## Ambientes / Environments
 
@@ -562,7 +563,8 @@ Descripción de campos JSON (Response), campos relevantes:
     - message: mensaje de confirmacion en caso de que el status sea true.
     - response: url de descarga del pdf.
     
-Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):       
+#### Ejemplo
+<br>       
 + Request (application/json)
 
     + Headers
@@ -580,8 +582,8 @@ Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):
                 "message": "Pdf generado",
                 "response": "https://files.vueltapp.com/service-10050902.pdf"
             }
-        
-## Consultar trazabilidad con evidencia - Get trace with evidence [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10050902]
+
+## GET - Consultar trazabilidad con evidencia - Get trace with evidence [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10050902]
 
 ### /Delivery/SearchTraceability/:email/:service_code [GET]
 
@@ -589,23 +591,44 @@ Metodo de obtención de trazabilidad con evidencia.
 
 Descripción de campos JSON (Request), campos relevantes:
 
-- Header:
-    - type: tipo de usuario que realiza la peticion, por defecto "user".
-    - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-    - token: email del usuario que realiza la petición.
+### Request
+#### Headers
 
-- Params:
-    - email(requerido)(string): correo del usuario con el cual se creo la entrega a consultar
-    - service_code(requerido)(number): Código de la entrega a consultar.
+Encabezados/Headers
+
+| Encabezados (Headers)   |      Requerido (Required)      |  Tipo (Type)  | Detalle (Details) |
+|----------|-------|-------------|------|
+| type |  Si / Yes |  String | Tipo de usuario que realiza la peticion, por defecto "user" |
+| token |    Si / Yes   |  API Key |  Email del usuario que realiza la petición  |
+| private-key |    Si / Yes   |  String |  La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX |
+
+<br><br>
+
+#### Params
+
+Parámetros/Params
     
-Descripción de campos JSON (Response), campos relevantes:
+| Campos (Fields)   |      Requerido (Required)      |  Tipo (Type)  | Detalle (Details) |
+|----------|-------|-------------|------|
+| email |  Si / Yes |  String | Correo del usuario con el cual se creo la entrega a consultar |
+| service_code |    Si / Yes   |  Number |   Código de la entrega a consultar |
 
-- Body:
-    - status: estado de la petición correcta = true en caso de error = false.
-    - message: mensaje de confirmacion en caso de que el status sea true.
-    - response: objeto JSON con los datos de la entrega.
+<br><br>
+    
+### Response
 
-Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):        
+Respuesta/Response
+    
+| Campos (Fields)   |Detalle (Details) |
+|----------|:------|
+| status | Estado de la petición correcta = true en caso de error = false |
+| message | Mensaje de confirmacion en caso de que el status sea true |
+| response | Objeto JSON con los datos de la entrega. |
+
+<br><br>
+
+#### Ejemplo
+<br>
 + Request (application/json)
 
     + Headers
