@@ -262,9 +262,9 @@ Cuerpo/Body
 | → internal_code | (String) Código interno del cliente. Campo se puede utilizar para incluir información adicional de referencia | "Cliente 3456","Serial 43546" |
 | → city_code`*` | (String) Código de la ciudad de destino. En Colombia código DANE de 5 dígitos. Ejemplo: Bogotá 11001, Medellín 05001, Cali 76001, Barranquilla 08001. Ver listado completos de códigos DANE: [Códigos](https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf) | 11001 |
 | → service_promise`*` | (String) Promesa de servicio del paquete | express, sameday, nextday |
-| → height`*` | (Number) Altura del paquete en centimetros | 10 |
-| → length`*` | (Number) Largo del paquete en centimetros | 30 |
-| → width`*` | (Number) Ancho del paquete en centimetros | 50 |
+| → height`*` | (Number) Altura del paquete en centimetros | "10" |
+| → length`*` | (Number) Largo del paquete en centimetros | "30" |
+| → width`*` | (Number) Ancho del paquete en centimetros | "50" |
 | → container | (String) Identificador del contenedor del paquete. Para clientes que manejan contenedir | X |
 | → raise_cash | (Number) Valor del pago en efectivo contra entrega. Se requiere tener el servicio activo con Logysto | 10000, 200000 |
 | → generate_b64 | (Boolean) Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf. Por defecto false. | true |
