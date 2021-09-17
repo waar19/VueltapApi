@@ -53,34 +53,53 @@ Descripción de campos JSON (Request), campos relevantes:
     - type: tipo de usuario que realiza la peticion, por defecto "user"
     - token: email del usuario
 
-## Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
+## 🟢 PUT - Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
-### UpdateWarehouses/:user_email [PUT]
+### {URL}/UpdateWarehouses/:user_email [PUT]
 Método de actualización/creación de bodegas
 
-Descripción de campos JSON (Request), campos relevantes:
+### ▶️ Request - Crear/Actualizar bodegas
+#### Headers
 
-- Header:
-    - type: tipo de usuario que realiza la peticion, por defecto "user".
-    - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-    - token: email del usuario
+Encabezados/Headers
 
-- Params:
-    - user_email: Correo de usuario que realiza la petición.
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| type`*` |(String) Tipo de usuario que realiza la peticion, por defecto "user" |user|
+| token`*` |(String) Email del usuario que realiza la petición  | user@user.com |
+| private-key`*` |(String) La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX | XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX|
+`*` Campo requerido
+<br><br>
+#### Parameters
+
+Parámetros/Params
+
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| user_email`*` |(String) Email del usuario al que se le creará o actualizará la bodega |tienda1@tienda.com|
+`*` Campo requerido
+<br><br>
+
+#### Body
+
+Cuerpo/Body
     
-- Body:
-    - seller: Arreglo de los sellers (bodegas) a actualizar y/o crear en la base de datos de LOGYSTO, si se reciben parametros vacios, se reemplazaran con esta información, si no se quiere actualizar un valor no se envía en el item del arreglo seller.
-        - shop_id: (Obligatorio) identificador único del establecimiento (comercio, seller)
-        - shop: (Obligatorio) nombre único del establecimiento (comercio, seller)
-        - contact_name: nombre de la persona contacto del establecimiento (comercio, seller)
-        - email_address: dirección de correo de la persona contacto del establecimiento (comercio, seller)
-        - address: dirección del establecimiento (comercio, seller)
-        - details: instrucciones adicionales para ubicación del establecimiento (comercio, seller)
-        - phone_number: número telefónico del establecimiento (comercio, seller)
-        - zip_code: zip code del establecimiento (comercio, seller)
-        - city: nombre de la ciudad de ubicación del establecimiento (comercio, seller)
-        - municipality: nombre del departamento, provinica, del establecimiento (comercio, seller)
-        
+| Campo (Field)   | Detalle (Details) | Valor ejemplo (Example values) |
+|----------|------|------|
+| seller`*` |(Array) Listado de los sellers (bodegas) a actualizar y/o crear en la base de datos de LOGYSTO. Si se reciben parámetros vacios, se reemplazaran con esta información, si no se quiere actualizar un valor no se envía en el item del arreglo seller |-|
+| → shop_id`*` |(String) Identificador único del establecimiento (comercio, seller) | "001", "TIENDA1", "HAYUELOS"|
+| → shop`*` |(String) Nombre único del establecimiento (comercio, seller) | "Tienda principal", "Tienda 1", "Centro Comercial Hayuelos"|
+| → contact_name | (String) Nombre de la persona de contacto del establecimiento (comercio, seller) | "Pedro Uribe" |
+| → email_address |(String) Correo electrónica de la persona de contacto del establecimiento (comercio, seller) | "seller32@tienda.com" |
+| → address`*` |(String) dirección del establecimiento (comercio, seller) | "Calle 101 No. 70G - 65" |
+| → details |(String) Instrucciones adicionales para ubicación del establecimiento (comercio, seller) | "Piso 3" |
+| → phone_number |(String) Número telefónico del establecimiento (comercio, seller) |3111234567|
+| → zip_code |(String) Código Postal del establecimiento (comercio, seller) |110111|
+| → city |(String) Nombre de la ciudad de ubicación del establecimiento |"Bogotá", "Medellín"|
+| → municipality |(String) Nombre del departamento, provinica, del establecimiento (comercio, seller) |"Cundinamarca","Antioquia"|
+`*` Campo requerido
+<br><br>
+
 Descripción de campos JSON (Response), campos relevantes:
 
 - Body:
@@ -203,51 +222,78 @@ Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):
  
 
 
-## Crear servicio - Create Delivery Order [/Delivery/CreateDeliveriesByJson]
+## 🟢 POST - Crear servicio - Create Delivery Order [/Delivery/CreateDeliveriesByJson]
 
-### CreateDeliveriesByJson [POST]
+### {URL}/Delivery/CreateDeliveriesByJson [POST]
 
 Método de creación de pedidos pertenecientes a multiples bodegas (MULTI BODEGA)
 
-Descripción de campos JSON (Request), campos relevantes:
+### ▶️ Request - Crear servicio
+#### Headers
 
-- Header:
-    - type: Tipo de usuario
-    - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-    - token: Email del usuario que realiza la petición
+Encabezados/Headers
+
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| type`*` |(String) Tipo de usuario que realiza la peticion, por defecto "user" |user|
+| token`*` |(String) Email del usuario que realiza la petición  | user@user.com |
+| private-key`*` |(String) La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX | XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX|
+`*` Campo requerido
+<br><br>
+
+#### Body
+
+Cuerpo/Body
     
-- Body:
-    - insurance_amount(requerido)(number): Valor por el cual quiere asegurar los pedidos. Valor vacío por defecto 0.
-    - store_code(opcional)(string): - (nit o cédula de usuario): Código interno de la tienda. Logysto informará si es necesario que este campo se envie. No aplica para todos los usuarios.
-    - addresses(requerido): Arreglo (array) con las direcciones de entrega.
-        - shop_id(requerido)(string): Identificador único de la bodega donde se debe recoger el pedido.
-        - direccion(requerido)(string): Dirección de entrega del pedido.
-        - peso(requerido)(number): Peso del producto a entregar. Valor vacío por defecto 0.
-        - instrucciones(requerido)(string): Datos adicionales para la entrega (Apto No, Edificio, etc.)
-        - orden_numero(opcional)(string): Descripción de número de factura u orden. Para algunos usuarios este campo está configurado como llave única que en caso de enviar un valor existente se rechazará
-        - contacto(requerido)(string): Nombre de la persona quien posiblemente recibirá el pedido.
-        - telefono(requerido)(string): Número de teléfono de quien posiblemente recibirá el pedido.
-        - email(opcional)(string): Correo electrónico de quien posiblement froe recibirá el pedido.
-        - is_roundtrip(requerido)(boolean): Describe si el servicio es ida y regreso. Valor por defecto false.
-        - internal_code(opcional)(string): Código interno del cliente.
-        - city_code(requerido)(string): Código de la ciudad de destino. En Colombia código DANE de 5 dígitos. Ejemplo: Bogotá 11001, Medellín 05001, Cali 76001, Barranquilla 08001. Ver listado completos de códigos DANE: https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf
-        - service_promise(requerido)(string): Promesa de servicio del paquete. Valores: express, sameday, nextday
-        - height(requerido)(number): Altura del paquete en centimetros
-        - length(requerido)(number): Largo del paquete en centimetros
-        - width(requerido)(number): Ancho del paquete en centimetros
-        - container(opcional)(string): Contenedor del cliente.
-        - raise_cash (opcional)(number): Valor del pago en efectivo contra entrega. Se requiere tener el servicio activo con Logysto. Ejemplo: 10000
-        - generate_b64(opcional): Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf.
-        - label_type(opcional): Tipo de label para la guía creada. Valores: 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox).
-        - products(requeri do)(Array): Arreglo de objetos que contiene la cantidad de paquetes en la entrega y cada arreglo interno podrá contener la cantidad de productos(objetos) deseada.
-            - sku(opcional)(string): Código interno del producto a enviar.
-            - upc(opcional)(string): Código internacional del producto a enviar.
-            - category(opcional)(string): Categoría del producto a enviar.
-            - product_name(opcional)(string): Nombre del producto a enviar.
-            - product_price(requerido)(number): Precio del producto a enviar.
-            - brand: (requerido)(string): Marca del producto a enviar. 
+| Campo (Field)   | Detalle (Details) | Valor ejemplo (Example values) |
+|----------|------|------|
+| insurance_amount`*` | (Number) Valor por el cual quiere asegurar los pedidos. Valor vacío por defecto 0 | 0, 50000, 100000 |
+| store_code | (String) Código interno de la tienda. Logysto informará si es necesario que este campo se envie. No aplica para todos los usuarios. | - |
+| addresses`*` | (Array) Listado de despachos a crear. Se puede enviar uno o múltiples despachos | - |
+| → shop_id`*` | (String) Identificador único de la bodega donde se debe recoger el pedido. Ver servicio de crear/actualizar bodegas  | "BODEGA_1" |
+| → direccion`*` | (String) Dirección de entrega del pedido | "Calle 101 # 70G - 65" |
+| → peso`*` | (Number) Peso del producto a entregar. Valor vacío por defecto 0. | 1 |
+| → instrucciones`*` | (String) Datos adicionales para la entrega (Apto No, Edificio, etc.) | "Apartamento 101", "Oficina 32", "Puerta Negra de la esquina" |
+| → orden_numero`*` | (String) Identificador del cliente, como número de factura u orden. Para algunos usuarios este campo está configurado como llave única que en caso de enviar un valor existente se rechazará | "FACT-00012345", "735476" |
+| → contacto`*` | (String) Nombre de la persona quien posiblemente recibirá el pedido | "Juan Pérez" |
+| → telefono`*` | (String) Número de teléfono de quien posiblemente recibirá el pedido. Se podrá usar para enviar SMS | "3111234567", "573111234567" |
+| → email | (String) Correo electrónico de quien posiblemente recibirá el pedido | "comprador@gmail.com" |
+| → is_roundtrip`*` | (Boolean) Describe si el servicio es ida y regreso, es decir, si el mensajero debe retornar al punto origen. Valor por defecto false | false, true |
+| → internal_code | (String) Código interno del cliente. Campo se puede utilizar para incluir información adicional de referencia | "Cliente 3456","Serial 43546" |
+| → city_code`*` | (String) Código de la ciudad de destino. En Colombia código DANE de 5 dígitos. Ejemplo: Bogotá 11001, Medellín 05001, Cali 76001, Barranquilla 08001. Ver listado completos de códigos DANE: [Códigos](https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf) | 11001 |
+| → service_promise`*` | (String) Promesa de servicio del paquete | express, sameday, nextday |
+| → height`*` | (Number) Altura del paquete en centimetros | 10 |
+| → length`*` | (Number) Largo del paquete en centimetros | 30 |
+| → width`*` | (Number) Ancho del paquete en centimetros | 50 |
+| → container | (String) Identificador del contenedor del paquete. Para clientes que manejan contenedir | X |
+| → raise_cash | (Number) Valor del pago en efectivo contra entrega. Se requiere tener el servicio activo con Logysto | 10000, 200000 |
+| → generate_b64 | (Boolean) Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf. Por defecto false. | true |
+| → label_type | (String) Tipo de label para la guía creada. Valores: 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox) | 1, 2 |
+| → products`*` | (Array) Listado de productos incluidos en el despacho | - |
+| →→ sku | (String) Código interno del producto a enviar | "LM-4563" |
+| →→ upc | (String) Código internacional del producto a enviar | 190198071958 |
+| →→ category | (String) Categoría del producto a enviar | "Ropa", "Cosméticos" |
+| →→ product_name | (String) Nombre del producto a enviar | "Iphone 11", "Tenis Rojos" |
+| →→ product_price`*` | (Number) Precio del producto a enviar | 10000, 150000 |
+| →→ brand`*` | (String) Marca del producto a enviar | "Apple", "Samsung" |
+`*` Campo requerido
+<br><br>
 
-Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):
+### ◀️ Response - Crear servicio
+
+Respuesta/Response
+    
+| Campos (Fields)   |  Tipo (Type)  | Detalle (Details) |
+|----------|------|------|
+| status |Boolean|Estado de la petición. Correcta = true, error = false |
+| count_not_create | Number| Cantidad de despachos NO creados |
+| services_not_create | Array | Listado de despachos que NO se pudieron crear |
+| count_create | Number| Cantidad de despachos creados |
+| services_not_create | Array | Listado de despachos que se pudieron crear |
+| services_guides | Array | Listado de etiquetas de los despachos creados |
+
+<br><br>
+#### Ejemplo
 + Request (application/json)
 
     + Headers
@@ -381,29 +427,46 @@ Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):
                 ]
             }
 
-## Cancelar Servicio - Cancel Delivery Order [/DeliveryItem/Cancel]
+## 🟢 PUT - Cancelar Servicio - Cancel Delivery Order [/DeliveryItem/Cancel]
 
-### Cancel Delivery Item [PUT]
+### {URL}/DeliveryItem/Cancel [PUT]
 
 Método de cancelación de servicio por código, el servicio podrá ser cancelado si no ha sido tomado y puesto en ruta por un mensajero.
 
-Descripción de campos JSON (Request), campos relevantes:
+### ▶️ Request - Cancelar Servicio
+#### Headers
 
-- Header:
-    - type: tipo de usuario que realiza la peticion, por defecto "user".
-    - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-    - token: email del usuario u objeto token que se responde en el objeto session.token en el método login.
+Encabezados/Headers
 
-- Body:
-    - service_code: Código de servicio asignado a la entrega al momento de ser creada.
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| type`*` |(String) Tipo de usuario que realiza la peticion, por defecto "user" |user|
+| token`*` |(String) Email del usuario que realiza la petición  | user@user.com |
+| private-key`*` |(String) La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX | XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX|
+`*` Campo requerido
+<br><br>
 
-Descripción de campos JSON (Response), campos relevantes:
+#### Body
 
-- Body:
-    - status: estado de la petición correcta = true en caso de error = false.
-    - message: mensaje de confirmacion en caso de que el estatus sea true.
-    - response: objeto del servicio que fue cancelado.
+Cuerpo/Body
+    
+| Campo (Field)   | Detalle (Details) | Valor ejemplo (Example values) |
+|----------|------|------|
+| service_code`*` | (Number) Código de la entrega a consultar | 12345678 |
+`*` Campo requerido
+<br><br>
 
+### ◀️ Response - Cancelar Servicio
+
+Respuesta/Response
+    
+| Campos (Fields)   |  Tipo (Type)  | Detalle (Details) |
+|----------|------|------|
+| status |Boolean|Estado de la petición. Correcta = true, error = false |
+| message |String| Mensaje de confirmacion en caso de que el status sea true. Si es exitoso retorna "Servicio Cancelado" |
+| response | Objeto | Objeto con la información del servicio que fue cancelado |
+
+<br><br>
 Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):        
 + Request (application/json)
 
@@ -538,31 +601,46 @@ Ejemplo (hacer click en el siguiente enlace para mostrar detalle del ejemplo):
                 }
             }
             
-## Consultar etiqueta PDF - Get Pdf info [/Delivery/Get/PdfInfo/receiver/10050902]
+## 🟢 GET - Consultar etiqueta PDF - Get Pdf info [/Delivery/Get/PdfInfo/{receiver}/{service_code}]
 
-### /Delivery/Get/PdfInfo/:receiver/:service_code [GET]
+### {URL}/Delivery/Get/PdfInfo/:receiver/:service_code [GET]
 
 Método de obtención de rotulo (pdf)
 
-Descripción de campos JSON (Request), campos relevantes:
+### ▶️ Request - Consultar etiqueta PDF
+#### Headers
 
-- Header:
-    - type: tipo de usuario que realiza la peticion, por defecto "user".
-    - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-    - token: email del usuario que realiza la petición.
+Encabezados/Headers
 
-- Params:
-    - receiver(requerido)(string): Identificador utilizado para especificar si se quiere obtener dentro del label quien recibió la entrega(en caso de estar en estado entregada).
-        - los valores permitidos son: "receiver" o "no_receiver"
-    - service_code(requerido)(number): Código del servicio asignado a la hora de realizar la creación del mismo.
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| type`*` |(String) Tipo de usuario que realiza la peticion, por defecto "user" |user|
+| token`*` |(String) Email del usuario que realiza la petición  | user@user.com |
+| private-key`*` |(String) La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX | XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX|
+`*` Campo requerido
+<br><br>
+
+#### Params
+
+Parámetros/Params
     
-Descripción de campos JSON (Response), campos relevantes:
-
-- Body:
-    - status: estado de la petición correcta = true en caso de error = false.
-    - message: mensaje de confirmacion en caso de que el status sea true.
-    - response: url de descarga del pdf.
+| Campo (Field)   | Detalle (Details) | Valor ejemplo (Example values) |
+|----------|------|------|
+| receiver`*` |(String) Indica si se quiere obtener dentro de la etiqueta la información de quién recibió la entrega (en caso de estar en estado entregada). Valores permitidos: "receiver" o "no_receiver" | receiver, no_receiver  |
+| service_code`*` | (Number) Código de la entrega a consultar | 12345678 |
+`*` Campo requerido
+<br><br>
     
+### ◀️ Response - Consultar etiqueta PDF
+
+Respuesta/Response
+    
+| Campos (Fields)   |  Tipo (Type)  | Detalle (Details) |
+|----------|------|------|
+| status |Boolean|Estado de la petición. Correcta = true, error = false |
+| message |String| Mensaje de confirmacion en caso de que el status sea true |
+| response | String | URL de descarga del pdf de la etiqueta |
+        
 #### Ejemplo
 <br>       
 + Request (application/json)
@@ -572,7 +650,7 @@ Descripción de campos JSON (Response), campos relevantes:
             type: user
             private-key: D077FYE-4J44PF0-KY3TWE6-B9BPJ7V
             token: wilmeralzateroman@gmail.com
-
+        
 + Response 200 (application/json)
 
     + Body
@@ -583,47 +661,64 @@ Descripción de campos JSON (Response), campos relevantes:
                 "response": "https://files.vueltapp.com/service-10050902.pdf"
             }
 
-## GET - Consultar trazabilidad con evidencia - Get trace with evidence [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10050902]
+## 🟢 GET - Consultar trazabilidad con evidencia - Get trace with evidence [/Delivery/SearchTraceability/wilmeralzateroman@gmail.com/10050902]
 
-### /Delivery/SearchTraceability/:email/:service_code [GET]
+### {URL}/Delivery/SearchTraceability/:email/:service_code [GET]
 
 Metodo de obtención de trazabilidad con evidencia.
 
 Descripción de campos JSON (Request), campos relevantes:
 
-### Request
+### ▶️ Request - Consultar trazabilidad
 #### Headers
 
 Encabezados/Headers
 
-| Encabezados (Headers)   |      Requerido (Required)      |  Tipo (Type)  | Detalle (Details) |
-|----------|-------|-------------|------|
-| type |  Si / Yes |  String | Tipo de usuario que realiza la peticion, por defecto "user" |
-| token |    Si / Yes   |  API Key |  Email del usuario que realiza la petición  |
-| private-key |    Si / Yes   |  String |  La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX |
-
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| type`*` |(String) Tipo de usuario que realiza la peticion, por defecto "user" |user|
+| token`*` |(String) Email del usuario que realiza la petición  | user@user.com |
+| private-key`*` |(String) La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX | XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX|
+`*` Campo requerido
 <br><br>
 
 #### Params
 
 Parámetros/Params
     
-| Campos (Fields)   |      Requerido (Required)      |  Tipo (Type)  | Detalle (Details) |
-|----------|-------|-------------|------|
-| email |  Si / Yes |  String | Correo del usuario con el cual se creo la entrega a consultar |
-| service_code |    Si / Yes   |  Number |   Código de la entrega a consultar |
-
+| Campo (Field)   | Detalle (Details) | Valor ejemplo (Example values) |
+|----------|------|------|
+| email`*` |(String) Correo del usuario con el cual se creo la entrega a consultar | user@user.com |
+| service_code`*` | (Number) Código de la entrega a consultar | 12345678 |
+`*` Campo requerido
 <br><br>
     
-### Response
+### ◀️ Response - Consultar trazabilidad
 
 Respuesta/Response
     
-| Campos (Fields)   |Detalle (Details) |
-|----------|:------|
-| status | Estado de la petición correcta = true en caso de error = false |
-| message | Mensaje de confirmacion en caso de que el status sea true |
-| response | Objeto JSON con los datos de la entrega. |
+| Campos (Fields)   |  Tipo (Type)  | Detalle (Details) |
+|----------|------|------|
+| status |Boolean|Estado de la petición. Correcta = true, error = false |
+| message |String| Mensaje de confirmacion en caso de que el status sea true |
+| response | Object |Objeto JSON con los datos de la entrega. |
+| → vueltap_guide | Number | Código de Servicio Logysto |
+| → order_number | String | Número de orden del despacho |
+| → date | Date | Fecha de creación de la órden - Formato ISO YYYY-MM-DDTHH:mm:ss.sssZ |
+| → status | String | Estado actual del despacho |
+| → raise_cash | Number | Valor de pago contra entrega - recaudo en efectivo|
+| → trace | Array |Registros de trazabilidad del despacho |
+| → messenger | Object | Datos del mensajero que entregó el despacho |
+| → locations | Array | Ubicaciones de origen y destino |
+| → contact | Object |Datos de la persona que recibió |
+| → evidence | Object | Evidencia de gestión de recolección, entrega o devolución |
+| → novelty | Number |Novedad de entrega en caso de que el despacho haya tenido alguna novedad. Si tuvo múltiples novedades registra la última |
+| →→ pickup | Object |Novedad de recolección |
+| →→→ descript | Number |Detalle de la novedad que presentó el despacho |
+| →→→ date | Date |Fecha de registro de la novedad - Formato ISO YYYY-MM-DDTHH:mm:ss.sssZ |
+| →→ delivery | Number | Novedad de entrega |
+| →→→ descript | Number |Detalle de la novedad que presentó el despacho |
+| →→→ date | Date |Fecha de registro de la novedad - Formato ISO YYYY-MM-DDTHH:mm:ss.sssZ |
 
 <br><br>
 
@@ -636,6 +731,7 @@ Respuesta/Response
             type: user
             private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
             token: wilmeralzateroman@gmail.com
+            
 + Response 200 (application/json)
 
     + Body
