@@ -265,7 +265,8 @@ Cuerpo/Body
 | → height`*` | (Number) Altura del paquete en centimetros | "10" |
 | → length`*` | (Number) Largo del paquete en centimetros | "30" |
 | → width`*` | (Number) Ancho del paquete en centimetros | "50" |
-| → container | (String) Identificador del contenedor del paquete. Para clientes que manejan contenedir | X |
+| → cantidad_paquetes | (Number) Campo para especificar si la orden tiene más de un paquete o bulto | 2, 3 |
+| → container | (String) Identificador del contenedor del paquete. Para clientes que manejan contenedores | X |
 | → how_much_raise | (Number) Valor del pago en efectivo contra entrega. Se requiere tener el servicio activo con Logysto | 10000, 200000 |
 | → generate_b64 | (Boolean) Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf. Por defecto false. | true |
 | → label_type | (String) Tipo de label para la guía creada. Valores: 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox) | 1, 2 |
