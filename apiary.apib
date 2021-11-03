@@ -9,21 +9,25 @@ Documentacion oficial del API RESTFul aplicación LOGYSTO.
 
 LOGYSTO cuenta con un ambiente de pruebas donde se pueden realizar test controlados de las distintas funcionalidades, y con el ambiente productivo donde la información corresponde con la operación real. Estos ambientes son independientes y no comparten información, por lo que las cuentas, ordenes y métodos de autenticación son independientes.
 
+*LOGYSTO has a test environment, where controlled tests can be carried out, and a production environment for the actual operation. These environments are independent and do not share information, meaning the accounts, orders and authentication methods are independent.*
+
 #### Ambiente de pruebas / Test
 
-- Acceso web de clientes: https://app2.vueltapp.com/
-- Tracking de ordenes: https://app2.vueltapp.com/monitor/
+- Acceso web de clientes/Webapp: https://app2.vueltapp.com/
+- Tracking de ordenes/Order tracking: https://app2.vueltapp.com/monitor/
 - URL API: https://qa-api.logysto.co/api_1.0/
 
 #### Ambiente de producción / Prod
 
-- Acceso web de clientes: https://app.vueltap.com/
-- Tracking de ordenes: https://app.vueltap.com/monitor/
+- Acceso web de clientes/Webapp: https://app.vueltap.com/
+- Tracking de ordenes/Order tracking: https://app.vueltap.com/monitor/
 - URL API: https://api.vueltap.com:8080/api_1.0/
 
 ## Autenticación - User Login
 
 Existen dos métodos de autenticación disponibles: mediante una llave de API (API key) generada en la cuenta del usuario (Recomendado) o mediante autenticación básica de usuario y contraseña (No recomendado).
+
+*There are two available authentication methods: using an API key generated in the user's account (Recommended) or using basic user and password authentication (Not recommended).*
 
 #### Api Key
 
@@ -31,10 +35,14 @@ Autenticación de usuarios de LOGYSTO mediante una llave de API (API Key) genera
 
 Para realizar las peticiones a los servicios disponibles en el API con este método se debe incluir un campo header
 
+*This method uses an API key generated in the customer webapp. The key for developer accounts can be generated in the "Mi Cuenta" ("My Account") section, in the "Configuración" ("Settings") tab and in the "Nueva Key Auth" ("New Auth Key") button. In case of having problems generating the key please contact the support team at https://www.logysto.co*
+
+*To make requests to the services available in the API with this method, a header field must be included*
+
 - Header:
-    - private-key: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-    - type: tipo de usuario que realiza la peticion, por defecto "user"
-    - token: email del usuario
+    - **private-key**: La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX / *Api Key*
+    - **type**: tipo de usuario que realiza la peticion, por defecto "user" / *Type of user. By default: "user"*
+    - **token**: email del usuario / *user's email*
 
 
 #### Autenticación con usuario y contraseña
@@ -43,15 +51,17 @@ Autenticación de usuarios de LOGYSTO con verificacion de usuario y contraseña.
 
 Descripción de campos JSON (Request), campos relevantes:
 
+*This method uses a username and password verification using a basic authentication header.*
+
 - Header:
-    - Authorization: String base 64 del usuario y contraseña concatenados con dos puntos: base64(usuario:base64(contraseña)). Formato: Basic XXXXXXXXXXXXXXXXXXXXXXXX
-        - Ejemplo
-            - Usuario: Logysto
-            - Contraseña: logysto
-            - Contraseña base64: bG9neXN0bw==
+    - **Authorization**: String base 64 del usuario y contraseña concatenados con dos puntos: base64(usuario:base64(contraseña)). Formato: Basic XXXXXXXXXXXXXXXXXXXXXXXX / *Base64 string of the username and password concatenated with a colon*
+        - Ejemplo/ *Example*
+            - Usuario/*Username*: Logysto
+            - Contraseña/*Password*: logysto
+            - Contraseña base64/*B64 Password*: bG9neXN0bw==
             - Header: Basic bG9neXN0bzpiRzluZVhOMGJ3PT0= 
-    - type: tipo de usuario que realiza la peticion, por defecto "user"
-    - token: email del usuario
+    - **type**: tipo de usuario que realiza la peticion, por defecto "user" / *Type of user. By default: "user"*
+    - **token**: email del usuario / *user's email*
 
 ## 🟢 PUT - Crear/Actualizar bodegas - Create/Update WareHouses [/Admin/UpdateWarehouses/diego2029_@hotmail.com]
 
