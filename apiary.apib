@@ -437,6 +437,216 @@ Respuesta/Response
                     }
                 ]
             }
+            
+            
+            
+## 🟢 POST - Crear servicio - DarkStore - Create Delivery Order [/Delivery/CreateDeliveriesByJson]
+
+### {URL}/Delivery/CreateDeliveriesByJson [POST]
+
+Método de creación de pedidos pertenecientes a multiples bodegas (MULTI BODEGA)
+
+### ▶️ Request - Crear servicio
+#### Headers
+
+Encabezados/Headers
+
+| Encabezado (Header)   |Detalle (Details) | Valor ejemplo (Example values) |
+|----------|-------------|------|------|
+| type`*` |(String) Tipo de usuario que realiza la peticion, por defecto "user" |user|
+| token`*` |(String) Email del usuario que realiza la petición  | user@user.com |
+| private-key`*` |(String) La clave o llave generada. Formato: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX | XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX|
+`*` Campo requerido
+<br><br>
+
+#### Body
+
+Cuerpo/Body
+    
+| Campo (Field)   | Detalle (Details) | Valor ejemplo (Example values) |
+|----------|------|------|
+| insurance_amount`*` | (Number) Valor por el cual quiere asegurar los pedidos. Valor vacío por defecto 0 | 0, 50000, 100000 |
+| store_code | (String) Código interno de la tienda. Logysto informará si es necesario que este campo se envie. No aplica para todos los usuarios. | - |
+| addresses`*` | (Array) Listado de despachos a crear. Se puede enviar uno o múltiples despachos | - |
+| → shop_id`*` | (String) Identificador único de la bodega donde se debe recoger el pedido. Ver servicio de crear/actualizar bodegas  | "BODEGA_1" |
+| → direccion`*` | (String) Dirección de entrega del pedido | "Calle 101 # 70G - 65" |
+| → peso`*` | (Number) Peso del producto a entregar. Valor vacío por defecto 0. | 1 |
+| → instrucciones`*` | (String) Datos adicionales para la entrega (Apto No, Edificio, etc.) | "Apartamento 101", "Oficina 32", "Puerta Negra de la esquina" |
+| → orden_numero`*` | (String) Identificador del cliente, como número de factura u orden. Para algunos usuarios este campo está configurado como llave única que en caso de enviar un valor existente se rechazará | "FACT-00012345", "735476" |
+| → contacto`*` | (String) Nombre de la persona quien posiblemente recibirá el pedido | "Juan Pérez" |
+| → telefono`*` | (String) Número de teléfono de quien posiblemente recibirá el pedido. Se podrá usar para enviar SMS | "3111234567", "573111234567" |
+| → email | (String) Correo electrónico de quien posiblemente recibirá el pedido | "comprador@gmail.com" |
+| → is_roundtrip`*` | (Boolean) Describe si el servicio es ida y regreso, es decir, si el mensajero debe retornar al punto origen. Valor por defecto false | false, true |
+| → internal_code | (String) Código interno del cliente. Campo se puede utilizar para incluir información adicional de referencia | "Cliente 3456","Serial 43546" |
+| → city_code`*` | (String) Código de la ciudad de destino. En Colombia código DANE de 5 dígitos. Ejemplo: Bogotá 11001, Medellín 05001, Cali 76001, Barranquilla 08001. Ver listado completos de códigos DANE: [Códigos](https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf) | 11001 |
+| → service_promise`*` | (String) Promesa de servicio del paquete | express, sameday, nextday |
+| → height`*` | (Number) Altura del paquete en centimetros | "10" |
+| → length`*` | (Number) Largo del paquete en centimetros | "30" |
+| → width`*` | (Number) Ancho del paquete en centimetros | "50" |
+| → cantidad_paquetes | (Number) Campo para especificar si la orden tiene más de un paquete o bulto | 2, 3 |
+| → container | (String) Identificador del contenedor del paquete. Para clientes que manejan contenedores | X |
+| → how_much_raise | (Number) Valor del pago en efectivo contra entrega. Se requiere tener el servicio activo con Logysto | 10000, 200000 |
+| → generate_b64 | (Boolean) Si se envia en true se retorna en la respuesta el base 64 de la guia generada en pdf. Por defecto false. | true |
+| → label_type | (String) Tipo de label para la guía creada. Valores: 1 horizontal (550px x 260px Aprox) y 2 vertical (260px x 315px Aprox) | 1, 2 |
+| → products`*` | (Array) Listado de productos incluidos en el despacho | - |
+| →→ sku | (String) Código interno del producto a enviar | "LM-4563" |
+| →→ upc | (String) Código internacional del producto a enviar | 190198071958 |
+| →→ category | (String) Categoría del producto a enviar | "Ropa", "Cosméticos" |
+| →→ product_name | (String) Nombre del producto a enviar | "Iphone 11", "Tenis Rojos" |
+| →→ product_price`*` | (Number) Precio del producto a enviar | 10000, 150000 |
+| →→ brand`*` | (String) Marca del producto a enviar | "Apple", "Samsung" |
+`*` Campo requerido
+<br><br>
+
+### ◀️ Response - Crear servicio
+
+Respuesta/Response
+    
+| Campos (Fields)   |  Tipo (Type)  | Detalle (Details) |
+|----------|------|------|
+| status |Boolean|Estado de la petición. Correcta = true, error = false |
+| count_not_create | Number| Cantidad de despachos NO creados |
+| services_not_create | Array | Listado de despachos que NO se pudieron crear |
+| count_create | Number| Cantidad de despachos creados |
+| services_not_create | Array | Listado de despachos que se pudieron crear |
+| services_guides | Array | Listado de etiquetas de los despachos creados |
+
+<br><br>
+#### Ejemplo
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+
+            {
+                "insurance_amount":"0",
+                "addresses":[
+                    {
+                        "shop_id":"W001",
+                        "direccion":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL",
+                        "peso":"1",
+                        "instrucciones":"CONJUNTO PINARES DE ALSACIA",
+                        "details":"",
+                        "orden_numero":"15060000006822",
+                        "internal_code": "",
+                        "city_code": 11001,
+                        "container": "",
+                        "service_promise": "sameday",
+                        "height": "50",
+                        "length": "50",
+                        "width": "50",
+                        "contacto":"Addresses 1",
+                        "telefono":"+573138893768",
+                        "email":"LUMYVELOSAV@MISENA.EDU.CO",
+                        "is_roundtrip":"false",
+                        "generate_b64":true,
+                        "label_type": 1,
+                        "products": [{
+                                "sku":"1111",
+                                "upc":"2222",
+                                "category":"",
+                                "product_name":"TENNIS",
+                                "product_price":"34610",
+                                "brand" : "Adidas"
+                            },{
+                                "sku":"3212",
+                                "upc":"3452",
+                                "category":"",
+                                "product_name":"MEDIAS",
+                                "product_price":"5000"
+                            },
+                            {
+                                "sku":"6785",
+                                "upc":"4123",
+                                "category":"",
+                                "product_name":"PRENDAS DE VESTIR",
+                                "product_price":"34610"
+                            }
+                        ]        
+                    },
+                    {
+                        "shop_id":"W001",
+                        "direccion":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL",
+                        "peso":"1",
+                        "instrucciones":"CONJUNTO PINARES DE ALSACIA",
+                        "details":"",
+                        "orden_numero":"15060000006822",
+                        "internal_code": "",
+                        "city_code": 11001,
+                        "service_promise": "express",
+                        "height": "30",
+                        "length": "30",
+                        "width": "30",
+                        "container": "",
+                        "contacto":"Addresses 2",
+                        "telefono":"+573138893768",
+                        "email":"LUMYVELOSAV@MISENA.EDU.CO",
+                        "is_roundtrip":"false",
+                        "generate_b64":true,
+                        "label_type": 2,
+                        "products": [{
+                                "sku":"1234",
+                                "upc":"5678",
+                                "category":"",
+                                "product_name":"CAMISETA",
+                                "product_price":"34610"
+                            },{
+                                "sku":"4567",
+                                "upc":"8901",
+                                "category":"",
+                                "product_name":"PANTALON",
+                                "product_price":"5000"
+                            }
+                        ]        
+                    }
+                ]
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "status": true,
+                "count_not_create": 0,
+                "services_not_create": [],
+                "count_create": 3,
+                "services_created": [
+                    10703845,
+                    10703846,
+                    10703847
+                ],
+                "services_guides": [
+                    {
+                        "pdfB64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuNC4yOSAoVWJ1bnR1KSBTZXJ2ZXIgYXQgZmlsZXMudnVlbHRhcHAuY29tIFBvcnQgNDQzPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=",
+                        "code": 10703845,
+                        "order_number": "15060000006822",
+                        "url_guide": "https://vueltappublic.s3.amazonaws.com/guides/10703845.pdf",
+                        "alt_url_guide": "https://files.vueltapp.com/service-10703845.pdf"
+                    },
+                    {
+                        "pdfB64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuNC4yOSAoVWJ1bnR1KSBTZXJ2ZXIgYXQgZmlsZXMudnVlbHRhcHAuY29tIFBvcnQgNDQzPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=",
+                        "code": 10703846,
+                        "order_number": "15060000006822",
+                        "url_guide": "https://vueltappublic.s3.amazonaws.com/guides/10703846.pdf",
+                        "alt_url_guide": "https://files.vueltapp.com/service-10703846.pdf"
+                    },
+                    {
+                        "pdfB64": "PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuNC4yOSAoVWJ1bnR1KSBTZXJ2ZXIgYXQgZmlsZXMudnVlbHRhcHAuY29tIFBvcnQgNDQzPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=",
+                        "code": 10703847,
+                        "order_number": "15060000006822",
+                        "url_guide": "https://vueltappublic.s3.amazonaws.com/guides/10703847.pdf",
+                        "alt_url_guide": "https://files.vueltapp.com/service-10703847.pdf"
+                    }
+                ]
+            }
+            
+            
 
 ## 🟢 PUT - Cancelar Servicio - Cancel Delivery Order [/DeliveryItem/Cancel]
 
