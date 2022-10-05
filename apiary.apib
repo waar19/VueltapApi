@@ -488,9 +488,13 @@ Cuerpo/Body
 | →→ sku | (String) Código interno del producto a enviar | "LM-4563" |
 | →→ upc | (String) Código internacional del producto a enviar | 190198071958 |
 | →→ category | (String) Categoría del producto a enviar | "Ropa", "Cosméticos" |
-| →→ product_name | (String) Nombre del producto a enviar | "Iphone 11", "Tenis Rojos" |
-| →→ product_price`*` | (Number) Precio del producto a enviar | 10000, 150000 |
+| →→ nombreProducto | (String) Nombre del producto a enviar | "Iphone 11", "Tenis Rojos" |
+| →→ precio | (Number) Precio del producto a enviar | 10000, 150000 |
 | →→ brand`*` | (String) Marca del producto a enviar | "Apple", "Samsung" |
+| →→ cantidad`*` | (Number) Cantidad por producto | 2, 4 |
+| →→ metadatos | (Array) Listado de caracteristicas adicionales para el producto | - |
+| →→→ nombre`*` | (String) Descripción de la caracteristica adicional | "Lote", "serial" |
+| →→→ valor`*` | (Array) El arreglo debe ser de la misma cantidad de productos ingresados | "Lote", "serial" |
 `*` Campo requerido
 <br><br>
 
@@ -533,11 +537,11 @@ Respuesta/Response
                         "telefono": "3115794089",
                         "products" : [
                             {
-                                "cantidad": "2",
+                                "cantidad": 2,
                                 "sku": "Prod1",
                                 "categoria": "Tech2",
                                 "nombreProducto": "DescripcionProd1",
-                                "precio": "0",
+                                "precio": 0,
                                 "marca": "",
                                 "upc": "",
                                 "metadatos": [
@@ -550,11 +554,11 @@ Respuesta/Response
                                 ]
                             },
                             {
-                                "cantidad": "4",
+                                "cantidad": 4,
                                 "sku": "Prod2",
                                 "categoria": "Tech2",
                                 "nombreProducto": "DescripcionProd1",
-                                "precio": "0",
+                                "precio": 0,
                                 "marca": "",
                                 "upc": "",
                                 "metadatos": [
