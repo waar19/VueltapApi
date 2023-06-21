@@ -276,7 +276,100 @@ Respuesta/Response
 | services_guides | Array | Listado de etiquetas de los despachos creados |
 
 <br><br>
-#### Ejemplo
+#### Ejemplo Ultima Milla
++ Request (application/json)
+
+    + Headers
+    
+            type: user
+            private-key: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
+            token: wilmeralzateroman@gmail.com
+            
+    + Body
+
+            {
+                "insurance_amount":"0",
+                "addresses":[
+                    {
+                        "shop_id":"W001",
+                        "direccion":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL",
+                        "peso":"1",
+                        "instrucciones":"CONJUNTO PINARES DE ALSACIA",
+                        "details":"",
+                        "orden_numero":"15060000006822",
+                        "internal_code": "",
+                        "city_code": 11001,
+                        "container": "",
+                        "service_promise": "sameday",
+                        "height": "50",
+                        "length": "50",
+                        "width": "50",
+                        "contacto":"Addresses 1",
+                        "telefono":"+573138893768",
+                        "email":"LUMYVELOSAV@MISENA.EDU.CO",
+                        "generate_b64":true,
+                        "label_type": 1,
+                        "products": [{
+                                "sku":"1111",
+                                "upc":"2222",
+                                "category":"",
+                                "product_name":"TENNIS",
+                                "product_price":"34610",
+                                "brand" : "Adidas"
+                            },{
+                                "sku":"3212",
+                                "upc":"3452",
+                                "category":"",
+                                "product_name":"MEDIAS",
+                                "product_price":"5000"
+                            },
+                            {
+                                "sku":"6785",
+                                "upc":"4123",
+                                "category":"",
+                                "product_name":"PRENDAS DE VESTIR",
+                                "product_price":"34610"
+                            }
+                        ]        
+                    },
+                    {
+                        "shop_id":"W001",
+                        "direccion":"CARRERA 83 # 13 - 50 TORRE 1 APTO 1804 EL TINTAL",
+                        "peso":"1",
+                        "instrucciones":"CONJUNTO PINARES DE ALSACIA",
+                        "details":"",
+                        "orden_numero":"15060000006822",
+                        "internal_code": "",
+                        "city_code": 11001,
+                        "service_promise": "express",
+                        "height": "30",
+                        "length": "30",
+                        "width": "30",
+                        "container": "",
+                        "contacto":"Addresses 2",
+                        "telefono":"+573138893768",
+                        "email":"LUMYVELOSAV@MISENA.EDU.CO",
+                        "generate_b64":true,
+                        "label_type": 2,
+                        "products": [{
+                                "sku":"1234",
+                                "upc":"5678",
+                                "category":"",
+                                "product_name":"CAMISETA",
+                                "product_price":"34610"
+                            },{
+                                "sku":"4567",
+                                "upc":"8901",
+                                "category":"",
+                                "product_name":"PANTALON",
+                                "product_price":"5000"
+                            }
+                        ]        
+                    }
+                ]
+            }
+            
+#### Ejemplo  DarkStore
 + Request (application/json)
 
     + Headers
